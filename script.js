@@ -58,7 +58,7 @@ window.addEventListener('scroll', () => {
 });
 
 // Typewriter Effect
-const textArray = ["Expert in Generative AI", "RAG Pipeline Architect", "Intelligent Systems Developer", "Data Driven Entrepreneur"];
+const textArray = ["Expert en IA Générative", "Architecte de Pipelines RAG", "Développeur de Systèmes Intelligents", "Entrepreneur Data-Driven"];
 let textIndex = 0;
 let charIndex = 0;
 const element = document.getElementById("typewriter");
