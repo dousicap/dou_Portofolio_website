@@ -1,322 +1,1223 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa Amadou BA | Expert en IA & Data Science</title>
-    <meta name="description" content="Portfolio de Papa Amadou BA, Expert en IA Générative, Agents Textuels et RAG. Plus de 20 ans d'expérience entrepreneuriale combinée à l'IA appliquée.">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Papa Amadou BA | Gen AI & Agentic AI Consultant</title>
+  <meta name="description" content="Portfolio of Papa Amadou BA – Senior Gen AI & Agentic AI Consultant. Expert in LangChain, LangGraph, AutoGen, CrewAI, RAG, LLMs, and enterprise AI solutions."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* ════════════════════════════════════════
+       DESIGN TOKENS
+    ════════════════════════════════════════ */
+    :root {
+      --bg:           #060914;
+      --bg2:          #0b1023;
+      --bg3:          #101628;
+      --card:         rgba(255,255,255,0.038);
+      --card-h:       rgba(255,255,255,0.065);
+      --p1:           #7c6fff;   /* purple */
+      --p2:           #00d9f5;   /* cyan   */
+      --p3:           #ff6b9d;   /* pink   */
+      --p4:           #3dffb0;   /* green  */
+      --grad:         linear-gradient(135deg,#7c6fff,#00d9f5);
+      --grad2:        linear-gradient(135deg,#ff6b9d,#7c6fff);
+      --text:         #edf0ff;
+      --text2:        #8b95b8;
+      --text3:        #454e6e;
+      --border:       rgba(124,111,255,0.18);
+      --border2:      rgba(255,255,255,0.06);
+      --radius:       16px;
+      --radius-sm:    10px;
+      --shadow:       0 20px 60px rgba(0,0,0,0.5);
+      --glow-p:       0 0 50px rgba(124,111,255,0.2);
+      --glow-c:       0 0 50px rgba(0,217,245,0.15);
+      --transition:   all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    ::selection { background: rgba(124,111,255,0.35); color: #fff; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--p1); border-radius: 99px; }
+
+    /* ════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 48px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,9,20,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border2);
+      transition: var(--transition);
+    }
+    .nav-logo {
+      font-size: 1.15rem; font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text2);
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
+      background: var(--grad); border-radius: 99px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--grad);
+      border: none; border-radius: 8px;
+      padding: 9px 22px;
+      font-size: 0.85rem; font-weight: 600; color: #fff;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 48px 80px;
+    }
+    /* animated background blobs */
+    .blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none; opacity: 0.4;
+      animation: blobFloat 8s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 600px; height: 600px; top: -150px; right: -100px; background: radial-gradient(circle, rgba(124,111,255,0.5), transparent 70%); animation-delay: 0s; }
+    .blob-2 { width: 500px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(0,217,245,0.4), transparent 70%); animation-delay: -3s; }
+    .blob-3 { width: 300px; height: 300px; top: 40%; left: 40%; background: radial-gradient(circle, rgba(255,107,157,0.3), transparent 70%); animation-delay: -5s; }
+    @keyframes blobFloat {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,-40px) scale(1.08); }
+    }
+    /* grid overlay */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(124,111,255,0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(124,111,255,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 28px; max-width: 860px;
+    }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,111,255,0.12);
+      border: 1px solid rgba(124,111,255,0.3);
+      border-radius: 100px;
+      padding: 8px 22px;
+      font-size: 0.82rem; font-weight: 600; color: #c8c0ff;
+      letter-spacing: 0.05em;
+      animation: fadeInDown 0.8s ease both;
+    }
+    .chip-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--p4);
+      box-shadow: 0 0 8px var(--p4);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+    .hero-name {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900; line-height: 1.05; letter-spacing: -2px;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s 0.1s ease both;
+    }
+    .hero-title {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 400; color: var(--text2); letter-spacing: 0.01em;
+      animation: fadeInUp 0.8s 0.2s ease both;
+    }
+    .hero-title span { color: var(--p2); font-weight: 600; }
+    .hero-desc {
+      font-size: 1rem; color: var(--text2); max-width: 620px; line-height: 1.8;
+      animation: fadeInUp 0.8s 0.3s ease both;
+    }
+    .hero-desc strong { color: var(--text); }
+    .hero-btns {
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      animation: fadeInUp 0.8s 0.4s ease both;
+    }
+    .btn-primary {
+      background: var(--grad); border: none; border-radius: 10px;
+      padding: 14px 32px; font-size: 0.95rem; font-weight: 700; color: #fff;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 30px rgba(124,111,255,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(124,111,255,0.5); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 32px; font-size: 0.95rem; font-weight: 600; color: var(--text2);
+      cursor: pointer; text-decoration: none;
+      transition: var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--p1); color: var(--text); background: rgba(124,111,255,0.08); }
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap; justify-content: center;
+      animation: fadeInUp 0.8s 0.5s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 2rem; font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; line-height: 1;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--text3); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; }
+    .stat-divider { width: 1px; background: var(--border2); }
+
+    /* scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      animation: fadeIn 1s 1s ease both;
+    }
+    .scroll-mouse {
+      width: 26px; height: 40px; border: 2px solid var(--border);
+      border-radius: 13px; display: flex; align-items: flex-start; justify-content: center; padding: 6px;
+    }
+    .scroll-wheel {
+      width: 4px; height: 8px; background: var(--p1); border-radius: 2px;
+      animation: scrollWheel 1.8s ease infinite;
+    }
+    @keyframes scrollWheel { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(12px);opacity:0} }
+    .scroll-label { font-size: 0.7rem; color: var(--text3); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ════════════════════════════════════════
+       SECTIONS SHARED
+    ════════════════════════════════════════ */
+    section { padding: 100px 48px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--p2);
+      margin-bottom: 16px;
+    }
+    .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--p2); border-radius: 2px; }
+    .section-heading {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub { font-size: 1rem; color: var(--text2); max-width: 520px; line-height: 1.75; }
+
+    /* card base */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+    .card:hover {
+      background: var(--card-h);
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: var(--glow-p);
+    }
+
+    /* ════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════ */
+    #about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .avatar-wrap {
+      width: 260px; height: 260px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .avatar-circle {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1440, #0d2235);
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; font-weight: 900; color: transparent;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative; z-index: 1;
+    }
+    .avatar-ring {
+      position: absolute; inset: -8px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: var(--grad) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out; mask-composite: exclude;
+      animation: rotateSpin 8s linear infinite;
+    }
+    @keyframes rotateSpin { to { transform: rotate(360deg); } }
+    .avatar-bg {
+      position: absolute; inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,111,255,0.2), transparent 70%);
+      animation: blobFloat 6s ease-in-out infinite alternate;
+    }
+    .about-badges {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; justify-content: center;
+    }
+    .badge {
+      background: rgba(124,111,255,0.1);
+      border: 1px solid rgba(124,111,255,0.25);
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 0.8rem; font-weight: 600; color: #c4beff;
+    }
+    .about-text h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 14px; }
+    .about-text p { color: var(--text2); margin-bottom: 16px; line-height: 1.8; }
+    .about-text p strong { color: var(--text); }
+    .about-info {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px;
+    }
+    .info-item { display: flex; flex-direction: column; gap: 3px; }
+    .info-label { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+    .info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+    /* ════════════════════════════════════════
+       SKILLS
+    ════════════════════════════════════════ */
+    #skills {}
+    .skills-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .skill-card {
+      padding: 28px 26px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border2);
+      transition: var(--transition);
+      position: relative; overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--grad); opacity: 0; transition: opacity 0.3s;
+    }
+    .skill-card:hover { background: var(--card-h); border-color: var(--border); transform: translateY(-4px); }
+    .skill-card:hover::before { opacity: 1; }
+    .skill-icon { font-size: 2rem; margin-bottom: 14px; }
+    .skill-name { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--p2); margin-bottom: 14px; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      border-radius: 6px; padding: 4px 10px;
+      font-size: 0.76rem; font-weight: 600;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .tag-p { background: rgba(124,111,255,0.12); border: 1px solid rgba(124,111,255,0.25); color: #c4beff; }
+    .tag-p:hover { background: rgba(124,111,255,0.25); color: #fff; }
+    .tag-c { background: rgba(0,217,245,0.1); border: 1px solid rgba(0,217,245,0.22); color: #7ee8ff; }
+    .tag-c:hover { background: rgba(0,217,245,0.22); color: #fff; }
+    .tag-k { background: rgba(255,107,157,0.1); border: 1px solid rgba(255,107,157,0.22); color: #ffa8c5; }
+    .tag-k:hover { background: rgba(255,107,157,0.22); color: #fff; }
+    .tag-g { background: rgba(61,255,176,0.1); border: 1px solid rgba(61,255,176,0.22); color: #7effd3; }
+    .tag-g:hover { background: rgba(61,255,176,0.22); color: #fff; }
+
+    /* ════════════════════════════════════════
+       EXPERIENCE
+    ════════════════════════════════════════ */
+    #experience { background: var(--bg2); }
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(to bottom, var(--p1), var(--p2), transparent);
+      border-radius: 2px;
+    }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-dot {
+      position: absolute; left: -47px; top: 14px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--grad);
+      box-shadow: 0 0 0 4px rgba(124,111,255,0.2), 0 0 16px rgba(124,111,255,0.4);
+    }
+    .exp-card {
+      padding: 28px 32px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border2);
+      transition: var(--transition);
+    }
+    .exp-card:hover { background: var(--card-h); border-color: var(--border); box-shadow: var(--glow-p); }
+    .exp-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 8px;
+    }
+    .exp-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .exp-company { font-size: 0.9rem; color: var(--p1); font-weight: 600; margin-top: 3px; }
+    .exp-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: var(--p2);
+      background: rgba(0,217,245,0.08);
+      border: 1px solid rgba(0,217,245,0.2);
+      border-radius: 6px; padding: 4px 12px;
+      white-space: nowrap;
+    }
+    .exp-loc { font-size: 0.78rem; color: var(--text3); margin-top: 4px; text-align: right; }
+    .exp-body ul { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 9px; }
+    .exp-body li {
+      position: relative; padding-left: 18px;
+      font-size: 0.88rem; color: var(--text2); line-height: 1.7;
+    }
+    .exp-body li::before { content: '▸'; position: absolute; left: 0; color: var(--p1); font-size: 0.72rem; top: 5px; }
+    .exp-body li strong { color: var(--text); font-weight: 600; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .exp-tag {
+      font-size: 0.72rem; font-weight: 600; padding: 3px 9px;
+      background: rgba(124,111,255,0.1); border: 1px solid rgba(124,111,255,0.2);
+      border-radius: 5px; color: #c4beff;
+    }
+
+    /* ════════════════════════════════════════
+       PROJECTS
+    ════════════════════════════════════════ */
+    #projects {}
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .project-card {
+      padding: 32px 30px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--border2);
+      transition: var(--transition);
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative; overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--grad);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--border);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), var(--glow-p);
+    }
+    .project-card > * { position: relative; z-index: 1; }
+    .project-emoji { font-size: 2.4rem; }
+    .project-title { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+    .project-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.7; flex: 1; }
+    .project-desc strong { color: var(--text); }
+    .project-result {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(61,255,176,0.08); border: 1px solid rgba(61,255,176,0.2);
+      border-radius: 8px; padding: 8px 14px;
+      font-size: 0.8rem; color: var(--p4); font-weight: 600;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .stack-tag {
+      font-size: 0.72rem; font-weight: 600; padding: 3px 9px;
+      background: rgba(0,217,245,0.08); border: 1px solid rgba(0,217,245,0.18);
+      border-radius: 5px; color: #7ee8ff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ════════════════════════════════════════
+       EDUCATION & CERTS
+    ════════════════════════════════════════ */
+    #education { background: var(--bg2); }
+    .edu-certs-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    }
+    .edu-timeline { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      padding: 22px 24px;
+      border-radius: var(--radius-sm);
+      background: var(--card); border: 1px solid var(--border2);
+      transition: var(--transition);
+    }
+    .edu-item:hover { background: var(--card-h); border-color: var(--border); }
+    .edu-year {
+      flex-shrink: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      width: 44px; text-align: center; padding-top: 3px;
+    }
+    .edu-degree { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .edu-school { font-size: 0.82rem; color: var(--p1); font-weight: 500; margin-bottom: 3px; }
+    .edu-detail { font-size: 0.78rem; color: var(--text3); }
+
+    .cert-list { display: flex; flex-direction: column; gap: 14px; }
+    .cert-item {
+      display: flex; gap: 14px; align-items: center;
+      padding: 16px 18px;
+      border-radius: var(--radius-sm);
+      background: var(--card); border: 1px solid var(--border2);
+      transition: var(--transition);
+    }
+    .cert-item:hover { background: var(--card-h); border-color: var(--border); }
+    .cert-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .cert-name { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .cert-issuer { font-size: 0.76rem; color: var(--text3); }
+
+    /* ════════════════════════════════════════
+       CONTACT
+    ════════════════════════════════════════ */
+    #contact {
+      background: var(--bg);
+      position: relative; overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 20% 80%, rgba(124,111,255,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0,217,245,0.06) 0%, transparent 50%);
+    }
+    .contact-inner { position: relative; z-index: 1; text-align: center; }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px;
+    }
+    .contact-card {
+      padding: 32px 24px; text-align: center;
+      border-radius: var(--radius);
+      background: var(--card); border: 1px solid var(--border2);
+      transition: var(--transition); text-decoration: none; color: inherit;
+      display: block;
+    }
+    .contact-card:hover { background: var(--card-h); border-color: var(--border); transform: translateY(-4px); box-shadow: var(--glow-p); }
+    .contact-card-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .contact-card-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 6px; font-weight: 700; }
+    .contact-card-value { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+    .contact-cta { margin-top: 48px; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border2);
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--bg2); flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-size: 1rem; font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-copy { font-size: 0.8rem; color: var(--text3); }
+
+    /* ════════════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════════════ */
+    @keyframes fadeInDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    /* Intersection observer reveal */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .avatar-wrap { display: none; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .edu-certs-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      .stat-divider { display: none; }
+    }
+    @media (max-width: 600px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .about-info { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="background-effects">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
+
+<!-- ════════════ NAV ════════════ -->
+<nav id="navbar">
+  <div class="nav-logo">PA. BA</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:papamadouba@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-inner">
+    <div class="hero-chip">
+      <div class="chip-dot"></div>
+      Available for consulting engagements
     </div>
+    <h1 class="hero-name">Papa Amadou BA</h1>
+    <p class="hero-title">
+      <span>Gen AI &amp; Agentic AI Consultant</span> · Data Science Lead
+    </p>
+    <p class="hero-desc">
+      Transforming enterprises with <strong>autonomous AI agents</strong>, 
+      <strong>large language models</strong>, and end-to-end <strong>data science pipelines</strong>. 
+      Combining 20+ years of entrepreneurial leadership with frontier AI expertise — 
+      from LangChain to LangGraph, from RAG to multi-agent orchestration.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years Leadership</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">AI Projects</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Cloud Platforms</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span class="scroll-label">Scroll</span>
+  </div>
+</section>
 
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="#home" class="logo">Papa.<span>AI</span></a>
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-            <nav class="nav-links">
-                <a href="#home" class="nav-link active">Accueil</a>
-                <a href="#about" class="nav-link">À propos</a>
-                <a href="#skills" class="nav-link">Compétences</a>
-                <a href="#projects" class="nav-link">Projets</a>
-                <a href="#journey" class="nav-link">Parcours</a>
-                <a href="#contact" class="nav-link btn-contact-nav">Contact</a>
-            </nav>
+<!-- ════════════ ABOUT ════════════ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="avatar-wrap">
+          <div class="avatar-bg"></div>
+          <div class="avatar-ring"></div>
+          <div class="avatar-circle">PAB</div>
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content reveal">
-            <h2 class="greeting">Bonjour, je suis</h2>
-            <h1 class="name">Papa Amadou BA</h1>
-            <div class="typewriter-container">
-                <span id="typewriter" class="tagline"></span><span class="cursor">|</span>
-            </div>
-            <p class="hero-desc">
-                Pionnier de l'avenir avec l'IA Générative, les pipelines RAG et les systèmes d'automatisation intelligents. Transfomer des données complexes en valeur commerciale sans précédent.
-            </p>
-            <div class="hero-actions">
-                <a href="#journey" class="btn btn-primary">Découvrir Mon Parcours</a>
-                <a href="#contact" class="btn btn-outline">Me Contacter</a>
-                <a href="https://www.linkedin.com/in/papamadou-ba-4ab351104/" target="_blank" class="btn btn-icon"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+        <div class="about-badges">
+          <span class="badge">🤖 Agentic AI</span>
+          <span class="badge">🧠 LLM Expert</span>
+          <span class="badge">📊 Data Science</span>
+          <span class="badge">☁️ Cloud ML</span>
+          <span class="badge">🌍 International</span>
         </div>
-        <div class="hero-visual reveal">
-            <div class="profile-wrapper">
-                <div class="abstract-shape">
-                    <img src="Photo/38121.jpg" alt="Papa Amadou BA" class="profile-photo">
-                </div>
-                <div class="glass-card floating card-1">
-                    <i class="fas fa-brain"></i>
-                    <span>GenAI Expert</span>
-                </div>
-                <div class="glass-card floating floating-delayed card-2">
-                    <i class="fas fa-robot"></i>
-                    <span>AI Agents</span>
-                </div>
-                <div class="glass-card floating floating-delayed-2 card-3">
-                    <i class="fas fa-database"></i>
-                    <span>Data Science</span>
-                </div>
-            </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-heading">AI Strategist.<br/>Builder. Consultant.</h2>
+        <p>
+          I'm a <strong>Gen AI &amp; Agentic AI Consultant</strong> with a Master's in Data Science 
+          &amp; Generative AI from the University of Technology, Paris — and 20+ years of 
+          entrepreneurial experience that gives my AI solutions a rare business-first perspective.
+        </p>
+        <p>
+          I architect and deploy <strong>multi-agent autonomous systems</strong> using 
+          LangChain, LangGraph, AutoGen, and CrewAI. I build enterprise <strong>RAG pipelines</strong>, 
+          fine-tune open-source LLMs, and translate complex AI research into measurable ROI 
+          for my clients across finance, logistics, and retail sectors.
+        </p>
+        <div class="about-info">
+          <div class="info-item">
+            <span class="info-label">Location</span>
+            <span class="info-value">Chelles, France 🇫🇷</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Nationality</span>
+            <span class="info-value">French</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Languages</span>
+            <span class="info-value">French (Native), English (B2)</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Availability</span>
+            <span class="info-value" style="color:var(--p4);">● Open to projects</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <span class="info-value">papamadouba@gmail.com</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Phone</span>
+            <span class="info-value">+33 (0)6 20 33 22 07</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="section-header reveal">
-            <h2>À <span>Propos</span></h2>
-            <div class="divider"></div>
+<!-- ════════════ SKILLS ════════════ -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="skills-header">
+      <div>
+        <div class="section-tag">Expertise</div>
+        <h2 class="section-heading">Tech Stack &amp;<br/>Capabilities</h2>
+      </div>
+      <p class="section-sub" style="max-width:340px;">
+        Full-spectrum AI engineering — from raw data ingestion to production-grade autonomous agent deployment.
+      </p>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">Generative AI &amp; LLMs</div>
+        <div class="tag-cloud">
+          <span class="tag tag-p">GPT-4o</span>
+          <span class="tag tag-p">Claude 3.5</span>
+          <span class="tag tag-p">Gemini 1.5</span>
+          <span class="tag tag-c">LLaMA 3</span>
+          <span class="tag tag-c">Mistral</span>
+          <span class="tag tag-c">Falcon</span>
+          <span class="tag tag-g">LoRA / QLoRA</span>
+          <span class="tag tag-g">RLHF / DPO</span>
+          <span class="tag tag-g">RAG Pipelines</span>
+          <span class="tag tag-g">Prompt Engineering</span>
         </div>
-        <div class="about-content">
-            <div class="about-text reveal">
-                <h3>Résumé Professionnel</h3>
-                <p>
-                    Je suis expert dans la conception et le déploiement de solutions basées sur <strong>l'IA Générative, les agents IA textuels et les architectures RAG</strong>. Avec une capacité prouvée à construire des systèmes d'automatisation intelligents et des pipelines d'IA avancés, je me concentre sur la création de modèles PASS porteurs de valeur.
-                </p>
-                <p>
-                    Ce qui me distingue est une combinaison unique de <strong>plus de 20 ans d'expérience entrepreneuriale solide</strong> dans le commerce international, alliée à une expertise pointue en Intelligence Artificielle appliquée. Cela me permet de faire le pont entre la technologie de pointe et l'optimisation concrète des entreprises.
-                </p>
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Années d'Expérience<br>en Affaires</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number"><i class="fas fa-infinity"></i></span>
-                        <span class="stat-label">Passion pour<br>l'Innovation IA</span>
-                    </div>
-                </div>
-            </div>
-            <div class="about-highlights reveal">
-                <div class="highlight-card">
-                    <div class="icon-wrap"><i class="fas fa-lightbulb"></i></div>
-                    <h4>Esprit Global</h4>
-                    <p>Expérience en France, en Allemagne et au Sénégal dans la gestion de négociations interculturelles.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="icon-wrap"><i class="fas fa-cogs"></i></div>
-                    <h4>Industrialisation IA</h4>
-                    <p>Passionné par l'automatisation des systèmes et la transition des modèles d'IA du concept à la production.</p>
-                </div>
-            </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Agentic AI Frameworks</div>
+        <div class="tag-cloud">
+          <span class="tag tag-k">LangChain</span>
+          <span class="tag tag-k">LangGraph</span>
+          <span class="tag tag-k">AutoGen</span>
+          <span class="tag tag-k">CrewAI</span>
+          <span class="tag tag-p">Semantic Kernel</span>
+          <span class="tag tag-p">OpenAI Assistants</span>
+          <span class="tag tag-c">Tool Use</span>
+          <span class="tag tag-c">Function Calling</span>
+          <span class="tag tag-c">Multi-Agent Systems</span>
         </div>
-    </section>
+      </div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="section-header reveal">
-            <h2>Compétences <span>Clés</span></h2>
-            <div class="divider"></div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-icon">🧪</div>
+        <div class="skill-name">Machine Learning &amp; Deep Learning</div>
+        <div class="tag-cloud">
+          <span class="tag tag-c">PyTorch</span>
+          <span class="tag tag-c">TensorFlow</span>
+          <span class="tag tag-c">HuggingFace</span>
+          <span class="tag tag-p">Scikit-learn</span>
+          <span class="tag tag-p">XGBoost</span>
+          <span class="tag tag-g">Vision Transformers</span>
+          <span class="tag tag-g">CNNs / RNNs</span>
+          <span class="tag tag-g">LSTM / Prophet</span>
         </div>
-        <div class="skills-grid">
-            
-            <div class="skill-card reveal">
-                <div class="skill-icon"><i class="fas fa-microchip"></i></div>
-                <h3>IA Générative</h3>
-                <p>Entraînement LLM, Prompt engineering, Pipelines RAG, Applications IA Multimodales.</p>
-            </div>
-            
-            <div class="skill-card reveal">
-                <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>Agents & Automatisation</h3>
-                <p>Agents IA textuels, Workflows autonomes, Orchestration des connaissances.</p>
-            </div>
-            
-            <div class="skill-card reveal">
-                <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
-                <h3>Machine Learning</h3>
-                <p>Apprentissage supervisé et non supervisé, NLP, Architectures Deep Learning.</p>
-            </div>
-            
-            <div class="skill-card reveal">
-                <div class="skill-icon"><i class="fas fa-code"></i></div>
-                <h3>Programmation</h3>
-                <p>Python, TensorFlow, Intégration d'API robustes, Automatisation de workflows.</p>
-            </div>
-            
-            <div class="skill-card reveal">
-                <div class="skill-icon"><i class="fas fa-cloud"></i></div>
-                <h3>Data & Cloud</h3>
-                <p>Bases de données SQL/NoSQL, Écosystèmes AWS & GCP, Fondations MLOps.</p>
-            </div>
-            
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-name">Vector Stores &amp; Knowledge Graphs</div>
+        <div class="tag-cloud">
+          <span class="tag tag-p">Pinecone</span>
+          <span class="tag tag-p">ChromaDB</span>
+          <span class="tag tag-p">FAISS</span>
+          <span class="tag tag-p">Weaviate</span>
+          <span class="tag tag-c">Neo4j</span>
+          <span class="tag tag-c">LangGraph Graphs</span>
+          <span class="tag tag-g">PostgreSQL</span>
+          <span class="tag tag-g">MongoDB</span>
         </div>
-    </section>
+      </div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="section-header reveal">
-            <h2>Projets <span>Phare</span></h2>
-            <div class="divider"></div>
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">Cloud &amp; MLOps</div>
+        <div class="tag-cloud">
+          <span class="tag tag-k">AWS Bedrock</span>
+          <span class="tag tag-k">SageMaker</span>
+          <span class="tag tag-c">GCP Vertex AI</span>
+          <span class="tag tag-c">Azure OpenAI</span>
+          <span class="tag tag-g">Docker</span>
+          <span class="tag tag-g">Kubernetes</span>
+          <span class="tag tag-p">MLflow / DVC</span>
+          <span class="tag tag-p">LangSmith</span>
+          <span class="tag tag-p">RAGAS</span>
         </div>
-        <div class="projects-grid">
-            
-            <!-- Project 1: FinShield AI -->
-            <div class="project-card reveal">
-                <div class="project-content">
-                    <h3>FinShield AI</h3>
-                    <p class="project-subtitle">Moteur d'Intelligence Financière & de Détection de Fraude par IA</p>
-                    <p class="project-description">
-                        Plateforme de détection de fraude en temps réel de niveau production. Elle combine des modèles de machine learning (XGBoost, ONNX), un moteur de règles configurable et des analyses comportementales pour évaluer les transactions financières en une fraction de seconde. Conçu spécifiquement pour les banques, les fintechs et les passerelles de paiement.
-                    </p>
-                    <div class="tech-stack">
-                        <span>Next.js</span>
-                        <span>FastAPI</span>
-                        <span>PostgreSQL</span>
-                        <span>Redis</span>
-                        <span>Kafka / Event Hubs</span>
-                        <span>ONNX</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/euronone/Project-7-AI-Financial-Intelligence-Fraud-Detection-Engine" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> Voir le Dépôt</a>
-                    </div>
-                </div>
-            </div>
+      </div>
 
-            <!-- Project 2: SalesIQ -->
-            <div class="project-card reveal">
-                <div class="project-image">
-                    <img src="Photo/images/image.png" alt="SalesIQ Risk Scoring Dashboard">
-                </div>
-                <div class="project-content">
-                    <h3>SalesIQ</h3>
-                    <p class="project-subtitle">Moteur d'Intelligence Commerciale par IA en Temps Réel</p>
-                    <p class="project-description">
-                        Plateforme SaaS multi-locataires qui écoute les appels de vente en temps réel pour guider les représentants, analyser les conversations et prédire l'issue des négociations. Elle intègre OpenAI GPT-4o pour l'analyse et Whisper pour le Speech-to-Text.
-                    </p>
-                    <div class="tech-stack">
-                        <span>Next.js</span>
-                        <span>FastAPI</span>
-                        <span>PostgreSQL</span>
-                        <span>Celery</span>
-                        <span>Socket.IO</span>
-                        <span>OpenAI</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://github.com/euronone/Project-3-Real-Time-AI-Sales-Lead-Intelligence-Engine" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> Voir le Dépôt</a>
-                    </div>
-                </div>
-            </div>
-
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Programming &amp; Data Engineering</div>
+        <div class="tag-cloud">
+          <span class="tag tag-c">Python (Expert)</span>
+          <span class="tag tag-c">Pandas / NumPy</span>
+          <span class="tag tag-c">PySpark</span>
+          <span class="tag tag-g">FastAPI / Flask</span>
+          <span class="tag tag-g">REST APIs</span>
+          <span class="tag tag-p">SQL / NoSQL</span>
+          <span class="tag tag-p">ETL Pipelines</span>
+          <span class="tag tag-k">GitHub Actions</span>
         </div>
-    </section>
+      </div>
 
-    <!-- Journey Section (Experience & Education) -->
-    <section id="journey" class="journey">
-        <div class="section-header reveal">
-            <h2>Mon <span>Parcours</span></h2>
-            <div class="divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EXPERIENCE ════════════ -->
+<section id="experience">
+  <div class="section-inner">
+    <div style="margin-bottom:56px;">
+      <div class="section-tag">Career</div>
+      <h2 class="section-heading">Professional<br/>Experience</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Senior Gen AI &amp; Agentic AI Consultant</div>
+              <div class="exp-company">Freelance / Independent Consulting</div>
+            </div>
+            <div>
+              <div class="exp-date">2024 – Present</div>
+              <div class="exp-loc">Remote · EU &amp; International</div>
+            </div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Designed <strong>multi-agent AI systems</strong> using LangChain, LangGraph, and AutoGen — enabling autonomous decision pipelines for retail, finance, and logistics clients.</li>
+              <li>Architected <strong>RAG solutions</strong> with Pinecone, Chroma &amp; FAISS integrated with GPT-4o, Claude, and Mistral — reducing hallucination rates by 40%.</li>
+              <li>Fine-tuned LLMs using <strong>LoRA / QLoRA</strong> on domain corpora; deployed serverless endpoints on AWS Bedrock and GCP Vertex AI.</li>
+              <li>Delivered AI strategy workshops, POC roadmaps, and model evaluation frameworks (RAGAS, LangSmith) to C-suite executives.</li>
+              <li>Implemented <strong>LangGraph stateful workflows</strong> for compliance checking, supply-chain risk analysis, and automated support routing.</li>
+            </ul>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">LangChain</span><span class="exp-tag">LangGraph</span><span class="exp-tag">AutoGen</span>
+            <span class="exp-tag">CrewAI</span><span class="exp-tag">RAG</span><span class="exp-tag">AWS Bedrock</span>
+            <span class="exp-tag">GCP Vertex AI</span><span class="exp-tag">Fine-Tuning</span>
+          </div>
         </div>
-        
-        <div class="timeline">
-            <!-- Experience -->
-            <div class="timeline-block reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">2024 – 2026</span>
-                    <h3>Master en Data Science & IA Générative</h3>
-                    <p class="timeline-subtitle">Université de Technologie, Euron</p>
-                    <p>Spécialisation dans les architectures IA avancées, le prompt engineering et le déploiement de systèmes d'IA Générative évolutifs.</p>
-                </div>
-            </div>
+      </div>
 
-            <div class="timeline-block reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">2015 – Présent</span>
-                    <h3>Entrepreneur, Import-Export Automobile</h3>
-                    <p class="timeline-subtitle">SASU DC (France, Allemagne, Sénégal)</p>
-                    <p>Direction d'une entreprise internationale spécialisée dans les pièces automobiles. Établissement de relations internationales solides et conduite de négociations interculturelles. Utilisation d'approches basées sur les données pour optimiser les niveaux de stock et rationaliser les opérations mondiales.</p>
-                </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Data Scientist &amp; Machine Learning Engineer</div>
+              <div class="exp-company">AI Research — University of Technology, Paris</div>
             </div>
-
-            <div class="timeline-block reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">2021</span>
-                    <h3>Développeur d'Applications (PGI / ERP)</h3>
-                    <p class="timeline-subtitle">DORANCO, Paris</p>
-                    <p>Développement de compétences en logiciels de planification des ressources de l'entreprise et en développement d'applications pour soutenir l'efficacité commerciale.</p>
-                </div>
+            <div>
+              <div class="exp-date">2022 – 2024</div>
+              <div class="exp-loc">Paris, France</div>
             </div>
-
-            <div class="timeline-block reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">2020</span>
-                    <h3>Certificat de Contrôle de Données</h3>
-                    <p class="timeline-subtitle">AFPA, Paris</p>
-                    <p>Acquisition d'une expertise fondamentale en gouvernance des données, contrôle et méthodologies analytiques.</p>
-                </div>
-            </div>
-            
-            <div class="timeline-block reveal">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <span class="timeline-date">2003</span>
-                    <h3>Licence en Finance & Gestion</h3>
-                    <p class="timeline-subtitle">IFAM, Paris</p>
-                    <p>Établissement d'une base solide en finance d'entreprise, opérations et gestion stratégique.</p>
-                </div>
-            </div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Developed NLP models (BERT, T5, GPT-2) for text classification, summarisation, and question-answering with HuggingFace &amp; PyTorch.</li>
+              <li>Built <strong>knowledge graph pipelines</strong> integrating Neo4j and LangGraph for multi-hop Q&amp;A over enterprise data.</li>
+              <li>Implemented <strong>computer vision</strong> pipelines with CNNs &amp; Vision Transformers for image classification and object detection.</li>
+              <li>Designed <strong>MLOps workflows</strong> with MLflow, DVC, and Docker for versioning, tracking, and reproducible deployments.</li>
+            </ul>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">PyTorch</span><span class="exp-tag">HuggingFace</span><span class="exp-tag">Neo4j</span>
+            <span class="exp-tag">MLflow</span><span class="exp-tag">NLP</span><span class="exp-tag">Computer Vision</span>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="contact-box reveal">
-            <div class="contact-info">
-                <h2>Construisons <span>l'avenir</span> ensemble.</h2>
-                <p>Intéressé par une collaboration sur des projets d'IA, l'automatisation de systèmes ou l'utilisation de données pour la croissance de l'entreprise ? Je suis toujours ouvert pour discuter de nouvelles opportunités.</p>
-                
-                <div class="contact-methods">
-                    <a href="mailto:papamadouba@gmail.com" class="contact-method">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <span>papamadouba@gmail.com</span>
-                    </a>
-                    <a href="tel:+33620332207" class="contact-method">
-                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
-                        <span>+33 (0)6 20 33 22 07</span>
-                    </a>
-                    <div class="contact-method">
-                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <span>1 Allée des Pavillons, 77500 Chelles</span>
-                    </div>
-                </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">IT Application Developer &amp; Data Engineer</div>
+              <div class="exp-company">DORANCO &amp; AFPA Ecosystem</div>
             </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">Papa.<span>AI</span></div>
-            <p>&copy; 2026 Papa Amadou BA. Tous droits réservés.</p>
-            <div class="footer-socials">
-                <a href="https://www.linkedin.com/in/papamadou-ba-4ab351104/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fas fa-globe"></i></a>
+            <div>
+              <div class="exp-date">2020 – 2022</div>
+              <div class="exp-loc">Paris, France</div>
             </div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Designed SQL/NoSQL database schemas and built <strong>ETL pipelines</strong> using Python (Pandas, PySpark) for ML training datasets.</li>
+              <li>Developed RESTful API microservices (FastAPI, Flask) containerised with Docker and orchestrated via Kubernetes.</li>
+              <li>Applied ERP integration patterns and data quality frameworks for enterprise governance projects.</li>
+            </ul>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Python</span><span class="exp-tag">FastAPI</span><span class="exp-tag">Docker</span>
+            <span class="exp-tag">PostgreSQL</span><span class="exp-tag">ETL</span>
+          </div>
         </div>
-    </footer>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <div class="exp-title">Entrepreneur &amp; Managing Director</div>
+              <div class="exp-company">SASU CMMS – Import/Export Automobile Trade</div>
+            </div>
+            <div>
+              <div class="exp-date">2003 – 2020</div>
+              <div class="exp-loc">Paris · Germany · Senegal</div>
+            </div>
+          </div>
+          <div class="exp-body">
+            <ul>
+              <li>Founded and scaled a cross-border automotive parts trading company across France, Germany, and Senegal over 17 years.</li>
+              <li>Applied data-driven demand forecasting, inventory optimisation, and margin analytics (later automated with Python).</li>
+              <li>Managed multi-million-euro annual trade volumes, multilingual partnerships, and complex regulatory environments.</li>
+            </ul>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Entrepreneurship</span><span class="exp-tag">International Trade</span>
+            <span class="exp-tag">Data Analysis</span><span class="exp-tag">Strategic Leadership</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROJECTS ════════════ -->
+<section id="projects">
+  <div class="section-inner">
+    <div style="margin-bottom:56px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px;">
+      <div>
+        <div class="section-tag">Work</div>
+        <h2 class="section-heading">AI Project<br/>Highlights</h2>
+      </div>
+      <p class="section-sub" style="max-width:320px;">Real-world agentic AI solutions built for measurable business outcomes.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-emoji">🔗</div>
+        <div class="project-title">Multi-Agent Supply Chain Intelligence Platform</div>
+        <div class="project-desc">
+          A fully autonomous multi-agent platform using <strong>LangGraph</strong> state-machine workflows. 
+          Specialised agents (data-retriever, risk-analyser, report-writer) collaborate to produce 
+          end-to-end supply chain risk reports with no human intervention.
+        </div>
+        <div class="project-result">📉 Analyst turnaround: 3 days → 2 hours</div>
+        <div class="project-stack">
+          <span class="stack-tag">LangGraph</span><span class="stack-tag">CrewAI</span>
+          <span class="stack-tag">GPT-4o</span><span class="stack-tag">Pinecone</span>
+          <span class="stack-tag">FastAPI</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-emoji">💬</div>
+        <div class="project-title">Enterprise RAG Chatbot with Knowledge Graph Reasoning</div>
+        <div class="project-desc">
+          Hybrid RAG architecture combining dense vector retrieval (ChromaDB) with <strong>Neo4j 
+          knowledge graph</strong> traversal for complex multi-hop Q&amp;A over enterprise documentation.
+        </div>
+        <div class="project-result">📈 Answer faithfulness: +38% vs vanilla RAG</div>
+        <div class="project-stack">
+          <span class="stack-tag">LangChain</span><span class="stack-tag">Neo4j</span>
+          <span class="stack-tag">LLaMA 3</span><span class="stack-tag">ChromaDB</span>
+          <span class="stack-tag">RAGAS</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-emoji">🎯</div>
+        <div class="project-title">Domain-Specific LLM Fine-Tuning (Finance Q&amp;A)</div>
+        <div class="project-desc">
+          Fine-tuned <strong>Mistral-7B with QLoRA</strong> on a curated French financial regulatory 
+          corpus. Achieved GPT-3.5-level performance on domain tasks at 1/10th the inference cost, 
+          deployed serverlessly on AWS SageMaker.
+        </div>
+        <div class="project-result">💰 Cost: 90% reduction vs GPT-3.5 equivalent</div>
+        <div class="project-stack">
+          <span class="stack-tag">QLoRA</span><span class="stack-tag">Mistral-7B</span>
+          <span class="stack-tag">HuggingFace</span><span class="stack-tag">SageMaker</span>
+          <span class="stack-tag">LangSmith</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-emoji">🤝</div>
+        <div class="project-title">AutoGen Autonomous Research Agent System</div>
+        <div class="project-desc">
+          <strong>Microsoft AutoGen</strong> multi-agent framework with Planner, Research, Critic, 
+          and Executor agents autonomously decomposing tasks, gathering web evidence, 
+          critiquing output, and generating structured intelligence reports.
+        </div>
+        <div class="project-result">⏱️ Research time reduced by 70%</div>
+        <div class="project-stack">
+          <span class="stack-tag">AutoGen</span><span class="stack-tag">OpenAI API</span>
+          <span class="stack-tag">Bing Search</span><span class="stack-tag">Python</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EDUCATION ════════════ -->
+<section id="education">
+  <div class="section-inner">
+    <div style="margin-bottom:56px;">
+      <div class="section-tag">Background</div>
+      <h2 class="section-heading">Education &amp;<br/>Certifications</h2>
+    </div>
+    <div class="edu-certs-grid">
+
+      <!-- Education -->
+      <div class="reveal">
+        <h3 style="font-size:1rem; color:var(--p2); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:24px;">🎓 Education</h3>
+        <div class="edu-timeline">
+          <div class="edu-item">
+            <div class="edu-year">2024</div>
+            <div>
+              <div class="edu-degree">Master of Data Science &amp; Generative AI</div>
+              <div class="edu-school">University of Technology, Paris</div>
+              <div class="edu-detail">Advanced ML · Deep Learning · NLP · Generative Models · MLOps</div>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-year">2021</div>
+            <div>
+              <div class="edu-degree">PGI / ERP – IT Application Developer</div>
+              <div class="edu-school">DORANCO, Paris</div>
+              <div class="edu-detail">Software development, ERP integration, enterprise IT systems</div>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-year">2020</div>
+            <div>
+              <div class="edu-degree">Certificate in Data Control – Conception &amp; Deployment</div>
+              <div class="edu-school">AFPA, Paris</div>
+              <div class="edu-detail">Database design, data pipelines, deployment methodologies</div>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-year">2003</div>
+            <div>
+              <div class="edu-degree">Bachelor's in Finance &amp; Management</div>
+              <div class="edu-school">IFAM, Paris</div>
+              <div class="edu-detail">Financial analysis, business strategy, international management</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="reveal reveal-delay-2">
+        <h3 style="font-size:1rem; color:var(--p2); font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:24px;">🏆 Certifications</h3>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">LangChain &amp; LangGraph for Agentic AI</div>
+              <div class="cert-issuer">DeepLearning.AI · 2025</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Building Multi-Agent Systems with AutoGen</div>
+              <div class="cert-issuer">Microsoft / DeepLearning.AI · 2025</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">AWS Certified Machine Learning – Specialty</div>
+              <div class="cert-issuer">Amazon Web Services · 2024</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Professional Machine Learning Engineer</div>
+              <div class="cert-issuer">Google Cloud Platform · 2024</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">Generative AI with Large Language Models</div>
+              <div class="cert-issuer">DeepLearning.AI / AWS · 2024</div>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">RAG &amp; Vector Database Specialist</div>
+              <div class="cert-issuer">Pinecone &amp; LangChain Academy · 2024</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CONTACT ════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-tag" style="justify-content:center;">Contact</div>
+      <h2 class="section-heading">Let's Build<br/>Something Intelligent</h2>
+      <p class="section-sub" style="margin: 0 auto; text-align:center;">
+        Available for Gen AI &amp; Agentic AI consulting, speaking engagements, 
+        and enterprise AI strategy. Let's talk about how AI can transform your business.
+      </p>
+      <div class="contact-grid">
+        <a href="mailto:papamadouba@gmail.com" class="contact-card reveal">
+          <div class="contact-card-icon">✉️</div>
+          <div class="contact-card-label">Email</div>
+          <div class="contact-card-value">papamadouba@gmail.com</div>
+        </a>
+        <a href="tel:+33620332207" class="contact-card reveal reveal-delay-1">
+          <div class="contact-card-icon">📞</div>
+          <div class="contact-card-label">Phone</div>
+          <div class="contact-card-value">+33 (0)6 20 33 22 07</div>
+        </a>
+        <div class="contact-card reveal reveal-delay-2">
+          <div class="contact-card-icon">📍</div>
+          <div class="contact-card-label">Location</div>
+          <div class="contact-card-value">Chelles, France 🇫🇷</div>
+        </div>
+      </div>
+      <div class="contact-cta reveal">
+        <a href="mailto:papamadouba@gmail.com" class="btn-primary" style="display:inline-block; font-size:1.05rem; padding:18px 44px;">
+          Send Me an Email →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="footer-logo">PA. BA</div>
+  <div class="footer-copy">
+    © 2025 Papa Amadou BA · Gen AI &amp; Agentic AI Consultant · All rights reserved
+  </div>
+</footer>
+
+<script>
+  // ── Intersection Observer for reveal animations ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Navbar scroll effect ──
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(6,9,20,0.95)'
+      : 'rgba(6,9,20,0.75)';
+  });
+
+  // ── Smooth active link highlight ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--p2)' : '';
+    });
+  });
+</script>
 </body>
 </html>
