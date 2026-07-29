@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import AppelAction from '../components/AppelAction.astro';
+import { SITE } from '../config/site';
+
+/**
+ * Page récit, pas CV. Aucune liste d'expériences, aucun mur de certifications,
+ * aucune timeline, aucun nom de tiers, aucun chiffre de résultat.
+ *
+ * XX_A_VERIFIER_XX marque les valeurs à confirmer avant mise en ligne
+ * (durée d'activité, intitulé exact du diplôme). Voir README.
+ */
+---
+
+<Base
+  titre="À propos"
+  description="D'opérateur de terrain à constructeur de systèmes agentiques : pourquoi l'IA doit proposer et non décider."
+>
+  <Section largeur="texte">
+    <p class="text-menu text-accent">À propos</p>
+    <h1 class="mt-6 text-h1">
+      J'ai dirigé une entreprise avant d'en automatiser une
+    </h1>
+    <p class="mt-8 text-secondaire">
+      Ce parcours n'est pas là pour impressionner. Il explique une conviction
+      précise, et pourquoi je construis les systèmes comme je les construis.
+    </p>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <!-- Emplacement réservé à une photo réelle. Aucune image de banque d'images.
+         Déposer le fichier dans public/ et remplacer ce bloc par une <img>. -->
+    <figure>
+      <div
+        class="flex aspect-4/3 items-center justify-center rounded-base border border-dashed border-trait bg-surface p-8 text-center"
+      >
+        <p class="max-w-xs text-menu text-secondaire">
+          Emplacement réservé à une photo réelle — fond neutre, cadrage buste.
+          Aucune image de banque d'images ne sera utilisée ici.
+        </p>
+      </div>
+      <figcaption class="mt-3 text-menu text-secondaire">
+        {SITE.nom}
+      </figcaption>
+    </figure>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <article class="flex flex-col gap-16">
+      <!-- ── Temps 1 : l'opérateur ── -->
+      <div>
+        <p class="font-titre text-menu text-secondaire">01 — L'opérateur</p>
+        <h2 class="mt-3 text-h2">
+          Pendant XX_A_VERIFIER_XX ans, j'ai été celui qui signe
+        </h2>
+        <div class="mt-6 flex flex-col gap-6 text-secondaire">
+          <p>
+            J'ai dirigé une activité d'import-export de pièces automobiles entre
+            l'Europe et l'Afrique de l'Ouest. Pas un projet, une entreprise :
+            des fournisseurs dispersés sur plusieurs marchés, des références
+            partielles, des délais qui s'étirent, et une trésorerie qui ne
+            pardonne pas une erreur de commande.
+          </p>
+          <p class="text-texte">
+            Dans ce métier, une décision engage. Personne ne vous demande si la
+            réponse était plausible — on vous demande si la pièce est la bonne,
+            et c'est vous qui payez si elle ne l'est pas.
+          </p>
+          <p>
+            J'ai appris là ce qu'aucune formation ne transmet : la différence
+            entre une information probablement juste et une information sur
+            laquelle on peut engager de l'argent. Cette différence a un nom
+            aujourd'hui — c'est la frontière entre une proposition et une
+            décision.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Temps 2 : la bascule ── -->
+      <div class="border-t border-trait pt-16">
+        <p class="font-titre text-menu text-secondaire">02 — La bascule</p>
+        <h2 class="mt-3 text-h2">
+          Je suis passé de l'autre côté de l'outil
+        </h2>
+        <div class="mt-6 flex flex-col gap-6 text-secondaire">
+          <p>
+            J'avais commencé à automatiser mes propres analyses — prévision de
+            demande, arbitrages de stock, marges. Ce qui n'était qu'un outil de
+            gestion est devenu le sujet principal. J'ai repris une formation
+            longue en XX_A_VERIFIER_XX pour construire ce que je n'avais fait
+            jusque-là qu'utiliser.
+          </p>
+          <p>
+            Ce qui m'a frappé en arrivant dans ce milieu, c'est le décalage. Des
+            démonstrations spectaculaires, une élégance technique réelle — et
+            très peu de systèmes qui survivent au contact d'un métier où une
+            erreur se paie. Le prototype impressionne. La mise en production
+            échoue, et elle échoue presque toujours au même endroit : personne
+            n'a défini qui assume la décision.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Temps 3 : la synthèse ── -->
+      <div class="border-t border-trait pt-16">
+        <p class="font-titre text-menu text-secondaire">03 — La synthèse</p>
+        <h2 class="mt-3 text-h2">
+          L'IA propose, un moteur déterministe contrôle, l'humain approuve
+        </h2>
+        <div class="mt-6 flex flex-col gap-6 text-secondaire">
+          <p>
+            Ces deux moitiés de parcours ne se juxtaposent pas, elles se
+            répondent. L'opérateur sait ce qu'une décision engage. L'ingénieur
+            sait qu'un modèle de langage produit du plausible, et que le
+            plausible n'engage rien.
+          </p>
+          <p class="text-texte">
+            D'où la seule architecture qui tienne en environnement normé : le
+            modèle propose, un moteur déterministe contrôle et peut bloquer,
+            l'humain approuve — et chaque transition laisse une trace.
+          </p>
+          <p>
+            Ce n'est pas une prudence de façade ni un frein à l'automatisation.
+            C'est l'inverse : c'est la condition pour qu'un métier régulé
+            accepte enfin d'automatiser. Tant que la frontière n'est pas
+            explicite, le pilote reste un pilote.
+          </p>
+        </div>
+      </div>
+    </article>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <AppelAction
+      titre="Si ce raisonnement vous parle"
+      accroche="Trente minutes pour qualifier votre blocage : architecture, contrôles, preuve. Si ce n'est pas mon sujet, je le dis et j'oriente."
+    />
+  </Section>
+</Base>
