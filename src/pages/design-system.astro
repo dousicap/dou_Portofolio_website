@@ -1,0 +1,193 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Bouton from '../components/Bouton.astro';
+import Carte from '../components/Carte.astro';
+import Badge from '../components/Badge.astro';
+import Prose from '../components/Prose.astro';
+import AppelAction from '../components/AppelAction.astro';
+
+/** Page interne d'exposition. Non liée depuis la navigation, non indexée. */
+const couleurs = [
+  { nom: 'fond', valeur: '--color-fond', usage: 'Fond de page' },
+  { nom: 'surface', valeur: '--color-surface', usage: 'Cartes, blocs' },
+  { nom: 'texte', valeur: '--color-texte', usage: 'Texte principal' },
+  { nom: 'secondaire', valeur: '--color-secondaire', usage: 'Texte d’appui' },
+  { nom: 'trait', valeur: '--color-trait', usage: 'Bordures 1px' },
+  { nom: 'accent', valeur: '--color-accent', usage: 'CTA et états actifs' },
+];
+
+const typo = [
+  { classe: 'text-h1', libelle: 'Titre 1 — Inter Tight 600, fluide' },
+  { classe: 'text-h2', libelle: 'Titre 2 — Inter Tight 600, fluide' },
+  { classe: 'text-h3', libelle: 'Titre 3 — Inter Tight 600' },
+  { classe: 'text-corps', libelle: 'Corps — Inter 400, interligne 1.7' },
+  { classe: 'text-appui', libelle: 'Appui — Inter 400, interligne 1.7' },
+  { classe: 'text-menu', libelle: 'Menu — Inter 400' },
+];
+
+const espacements = [2, 4, 6, 8, 12, 16, 24];
+const statuts = [
+  'En développement',
+  'Spécification complète — build en cours',
+  'En production interne',
+  'Actif — enrichissement continu',
+];
+---
+
+<Base
+  titre="Design system"
+  description="Page interne d'exposition des tokens et composants du site."
+  noindex
+>
+  <Section>
+    <p class="text-menu text-secondaire">Page interne</p>
+    <h1 class="mt-3 text-h1">Design system</h1>
+    <p class="mt-6 max-w-texte text-secondaire">
+      Toutes les valeurs affichées ici proviennent de
+      <code class="text-texte">src/styles/tokens.css</code>, seul fichier du dépôt
+      autorisé à contenir un code hexadécimal. Aucune page ne définit de valeur
+      propre.
+    </p>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Couleurs</h2>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        couleurs.map((c) => (
+          <div class="rounded-base border border-trait p-4">
+            <div
+              class="h-16 rounded-base border border-trait"
+              style={`background-color: var(${c.valeur})`}
+            />
+            <p class="mt-4 font-titre font-semibold">{c.nom}</p>
+            <p class="text-menu text-secondaire">{c.usage}</p>
+            <code class="mt-1 block text-menu text-secondaire">{c.valeur}</code>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-6 max-w-texte text-appui text-secondaire">
+      L'accent ne sert qu'au CTA et aux états actifs. Il n'est jamais décoratif :
+      dès qu'il apparaît deux fois pour deux raisons différentes sur un même
+      écran, il ne signale plus rien.
+    </p>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Typographie</h2>
+    <div class="mt-8 flex flex-col gap-6">
+      {
+        typo.map((t) => (
+          <div class="border-b border-trait pb-6">
+            <p class="text-menu text-secondaire">{t.classe}</p>
+            <p class={`mt-2 ${t.classe} ${t.classe.startsWith('text-h') ? 'font-titre font-semibold' : ''}`}>
+              {t.libelle}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Espacement</h2>
+    <p class="mt-4 max-w-texte text-secondaire">
+      Échelle de 4 (0,25 rem). Aucune valeur hors échelle n'est admise.
+    </p>
+    <div class="mt-8 flex flex-col gap-3">
+      {
+        espacements.map((e) => (
+          <div class="flex items-center gap-4">
+            <code class="w-16 text-menu text-secondaire">{e}</code>
+            <div
+              class="h-4 rounded-base bg-accent"
+              style={`width: ${e * 0.25}rem`}
+            />
+            <span class="text-menu text-secondaire">{e * 4}px</span>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Boutons</h2>
+    <p class="mt-4 max-w-texte text-secondaire">
+      Deux variantes. Le primaire est réservé au CTA unique : jamais deux sur une
+      même page.
+    </p>
+    <div class="mt-8 flex flex-wrap items-center gap-4">
+      <Bouton href="#" variante="primaire">Primaire</Bouton>
+      <Bouton href="#" variante="secondaire">Secondaire</Bouton>
+    </div>
+    <p class="mt-6 text-menu text-secondaire">
+      États : survol (assombrissement de l'accent / bordure accent), focus clavier
+      (anneau accent, 2px, décalé de 2px). Testable à la tabulation.
+    </p>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Badge de statut</h2>
+    <p class="mt-4 max-w-texte text-secondaire">
+      Porte le statut honnête d'un système. L'accent ne marque que ce qui tourne
+      réellement — jamais une intention.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {statuts.map((s) => <Badge statut={s} />)}
+    </div>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Cartes</h2>
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <Carte>
+        <p class="text-menu text-secondaire">Statique</p>
+        <h3 class="mt-2 text-h3">Carte sans lien</h3>
+        <p class="mt-3 text-appui text-secondaire">
+          Bordure 1px, aucune ombre. La profondeur vient du trait, pas du flou.
+        </p>
+      </Carte>
+      <Carte href="#">
+        <p class="text-menu text-secondaire">Interactive</p>
+        <h3 class="mt-2 text-h3">Carte cliquable</h3>
+        <p class="mt-3 text-appui text-secondaire">
+          Toute la surface est cliquable. La bordure passe à l'accent au survol.
+        </p>
+      </Carte>
+    </div>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Prose</h2>
+    <p class="mt-4 max-w-texte text-secondaire">
+      Rendu du contenu MDX des études de cas. Cadré à 72ch.
+    </p>
+    <Prose class="mt-8">
+      <p>
+        <strong>Contexte.</strong> L'intertitre en gras qui ouvre un paragraphe est
+        promu en tête de bloc et passe à l'accent — c'est le contrat de format des
+        quatre études de cas.
+      </p>
+      <ul>
+        <li>
+          Un <strong>élément de liste</strong> est marqué par un trait, pas par une
+          puce.
+        </li>
+        <li>Le texte de liste est en couleur secondaire par défaut.</li>
+      </ul>
+    </Prose>
+  </Section>
+
+  <Section separee>
+    <h2 class="text-h2">Bloc de conversion</h2>
+    <div class="mt-8 flex flex-col gap-10">
+      <AppelAction />
+      <div class="border-t border-trait pt-10">
+        <p class="text-menu text-secondaire">Variante sobre</p>
+        <AppelAction variante="sobre" class="mt-4" />
+      </div>
+    </div>
+  </Section>
+</Base>
