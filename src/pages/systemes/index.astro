@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Carte from '../../components/Carte.astro';
+import Badge from '../../components/Badge.astro';
+import AppelAction from '../../components/AppelAction.astro';
+
+const systemes = (await getCollection('systemes')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+---
+
+<Base
+  titre="Systèmes"
+  description="Quatre systèmes agentiques construits, exposés au format Contexte → Contrainte → Système → Preuve → Statut."
+>
+  <Section>
+    <p class="text-menu text-accent">Systèmes</p>
+    <h1 class="mt-6 text-h1">Ce qui est construit, et jusqu'où</h1>
+    <p class="mt-8 max-w-texte text-secondaire">
+      Quatre systèmes, un format unique : contexte, contrainte, architecture,
+      preuve, statut. Ce qui est exposé ici, ce sont des patterns et des
+      artefacts de méthode — jamais un interne de projet, jamais un tiers nommé.
+      Le statut affiché est le statut réel.
+    </p>
+  </Section>
+
+  <Section separee>
+    <ul class="grid gap-6 md:grid-cols-2">
+      {
+        systemes.map((s) => (
+          <li>
+            <Carte href={`/systemes/${s.id}`} class="h-full">
+              <Badge statut={s.data.statut} />
+              <h2 class="mt-4 text-h3">{s.data.titre}</h2>
+              <p class="mt-3 text-appui text-secondaire">{s.data.resume}</p>
+
+              <dl class="mt-6 border-t border-trait pt-4 text-menu">
+                <dt class="text-secondaire">Domaine</dt>
+                <dd class="mt-1">{s.data.domaine}</dd>
+              </dl>
+
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {s.data.stack.map((outil) => (
+                  <li class="rounded-base border border-trait px-2 py-1 text-menu text-secondaire">
+                    {outil}
+                  </li>
+                ))}
+              </ul>
+            </Carte>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section separee>
+    <AppelAction />
+  </Section>
+</Base>

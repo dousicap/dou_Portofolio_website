@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Badge from '../../components/Badge.astro';
+import Prose from '../../components/Prose.astro';
+import AppelAction from '../../components/AppelAction.astro';
+
+export const getStaticPaths = (async () => {
+  const systemes = await getCollection('systemes');
+  return systemes.map((systeme) => ({
+    params: { slug: systeme.id },
+    props: { systeme },
+  }));
+}) satisfies GetStaticPaths;
+
+const { systeme } = Astro.props;
+const { Content } = await render(systeme);
+
+/** Navigation entre études de cas, dans l'ordre déclaré du frontmatter. */
+const tous = (await getCollection('systemes')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+const position = tous.findIndex((s) => s.id === systeme.id);
+const suivant = tous[(position + 1) % tous.length];
+---
+
+<Base titre={systeme.data.titre} description={systeme.data.resume}>
+  <Section largeur="texte">
+    <a
+      href="/systemes"
+      class="text-menu text-secondaire transition-colors duration-150 hover:text-texte"
+    >
+      ← Tous les systèmes
+    </a>
+
+    <Badge statut={systeme.data.statut} class="mt-8" />
+    <h1 class="mt-6 text-h1">{systeme.data.titre}</h1>
+    <p class="mt-6 text-secondaire">{systeme.data.resume}</p>
+
+    <dl class="mt-10 grid gap-6 border-t border-trait pt-8 sm:grid-cols-2">
+      <div>
+        <dt class="text-menu text-secondaire">Domaine</dt>
+        <dd class="mt-2">{systeme.data.domaine}</dd>
+      </div>
+      <div>
+        <dt class="text-menu text-secondaire">Stack</dt>
+        <dd class="mt-2">
+          <ul class="flex flex-wrap gap-2">
+            {
+              systeme.data.stack.map((outil) => (
+                <li class="rounded-base border border-trait px-2 py-1 text-menu text-secondaire">
+                  {outil}
+                </li>
+              ))
+            }
+          </ul>
+        </dd>
+      </div>
+    </dl>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <Prose>
+      <Content />
+    </Prose>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <a
+      href={`/systemes/${suivant.id}`}
+      class="block rounded-base border border-trait bg-surface p-6 transition-colors duration-150 hover:border-accent"
+    >
+      <p class="text-menu text-secondaire">Système suivant</p>
+      <p class="mt-2 font-titre font-semibold">{suivant.data.titre}</p>
+    </a>
+
+    <AppelAction class="mt-10" />
+  </Section>
+</Base>
