@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Carte from '../components/Carte.astro';
+import AppelAction from '../components/AppelAction.astro';
+
+const temps = [
+  {
+    numero: '01',
+    nom: 'Plan',
+    principe:
+      "Un périmètre se ferme avant d'écrire du code, pas après. Ce qui n'est pas testable n'entre pas dans le plan.",
+    points: [
+      "Critères d'acceptation formulés comme des tests, pas comme des intentions",
+      "Critères d'abandon écrits à l'avance : à quelle condition on arrête",
+      'Frontière explicite entre ce que la machine propose et ce qu’un humain assume',
+    ],
+  },
+  {
+    numero: '02',
+    nom: 'Build',
+    principe:
+      "L'architecture porte la contrainte métier. Un contrôle réglementaire n'est pas une consigne dans un prompt.",
+    points: [
+      "Machine d'état unique, chaque transition horodatée et attribuée",
+      'Contrôles déterministes bloquants, prioritaires sur le score de confiance du modèle',
+      'Corpus normatif versionné hors du cœur applicatif : changer la règle ≠ redéployer le moteur',
+    ],
+  },
+  {
+    numero: '03',
+    nom: 'Verify',
+    principe:
+      "Rien n'est terminé sur parole. Le statut « fait » est une sortie de test, jamais une déclaration.",
+    points: [
+      "Harness d'évaluation branché en gate d'intégration continue",
+      'Corpus de cas de référence versionné, mesuré à chaque changement',
+      'Seuils de confiance mesurés et non déclarés',
+    ],
+  },
+  {
+    numero: '04',
+    nom: 'Evolve',
+    principe:
+      "Un système en production dérive. Ce qui le tient, c'est la trace des décisions, pas la mémoire des gens.",
+    points: [
+      'Decision log : toute évolution de périmètre y passe',
+      'Gouvernance des versions du corpus, y compris pour les dossiers déjà ouverts',
+      'Surveillance de dérive et revue périodique',
+    ],
+  },
+];
+---
+
+<Base
+  titre="Méthode"
+  description="Plan, Build, Verify, Evolve — gates, harness d'évaluation et decision log."
+>
+  <Section>
+    <p class="text-menu text-accent">Méthode</p>
+    <h1 class="mt-6 text-h1">Plan → Build → Verify → Evolve</h1>
+    <p class="mt-8 max-w-texte text-secondaire">
+      Ce qui sépare un pilote d'un système en production n'est presque jamais le
+      modèle. C'est ce qu'il y a autour : le contexte qu'on lui donne, les
+      contrôles qui l'encadrent, la preuve qu'on exige avant de le croire, et la
+      trace qu'on garde de chaque décision.
+    </p>
+  </Section>
+
+  <Section separee>
+    <ol class="grid gap-6 md:grid-cols-2">
+      {
+        temps.map((t) => (
+          <li>
+            <Carte class="h-full">
+              <p class="font-titre text-menu text-secondaire">{t.numero}</p>
+              <h2 class="mt-3 text-h3 text-accent">{t.nom}</h2>
+              <p class="mt-4">{t.principe}</p>
+              <ul class="mt-6 flex flex-col gap-3 border-t border-trait pt-6">
+                {t.points.map((p) => (
+                  <li class="flex gap-3 text-appui text-secondaire">
+                    <span aria-hidden="true" class="mt-3 h-px w-2 shrink-0 bg-trait" />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </Carte>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section separee largeur="texte">
+    <h2 class="text-h2">Le gate, concrètement</h2>
+    <p class="mt-6 text-secondaire">
+      Un gate n'est pas une réunion de validation. C'est une condition mécanique :
+      tant qu'elle n'est pas remplie, l'étape suivante ne démarre pas. Trois
+      exigences reviennent à chaque passage.
+    </p>
+
+    <dl class="mt-10 flex flex-col divide-y divide-trait border-y border-trait">
+      <div class="py-6">
+        <dt class="font-titre font-semibold">Une preuve typée, pas un compte rendu</dt>
+        <dd class="mt-2 text-appui text-secondaire">
+          Un log de build, un test exécuté, un artefact produit. « C'est fait »
+          n'est pas une preuve.
+        </dd>
+      </div>
+      <div class="py-6">
+        <dt class="font-titre font-semibold">Un corpus, pas une impression</dt>
+        <dd class="mt-2 text-appui text-secondaire">
+          La qualité se mesure contre des cas de référence connus et versionnés.
+          Une amélioration qui ne se voit pas sur le corpus n'a pas eu lieu.
+        </dd>
+      </div>
+      <div class="py-6">
+        <dt class="font-titre font-semibold">Une décision écrite, pas un glissement</dt>
+        <dd class="mt-2 text-appui text-secondaire">
+          Un périmètre qui bouge passe par le decision log, avec la raison et la
+          date. Sinon personne ne saura, six mois plus tard, pourquoi le système
+          fait ce qu'il fait.
+        </dd>
+      </div>
+    </dl>
+  </Section>
+
+  <Section separee>
+    <AppelAction
+      titre="Cette méthode s'applique-t-elle à votre cas ?"
+      accroche="Trente minutes pour qualifier le blocage et dire par quel bout le prendre."
+    />
+  </Section>
+</Base>
