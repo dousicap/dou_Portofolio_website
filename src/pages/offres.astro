@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Carte from '../components/Carte.astro';
+import AppelAction from '../components/AppelAction.astro';
+
+/**
+ * Trois offres, jamais quatre. Aucun taux horaire n'est affiché — brief §6.
+ * La séquence est délibérée : la 1 achète la confiance, la 2 le résultat,
+ * la 3 la durée.
+ */
+const offres = [
+  {
+    numero: '01',
+    nom: 'Audit Pilote → Production',
+    format: 'Forfait, 5 à 10 jours',
+    accroche:
+      "Votre pilote marche en démonstration et bloque avant la production. L'audit dit où, et ce qu'il faut pour le débloquer.",
+    livrables: [
+      'Registre de gaps entre le pilote et une mise en production',
+      "Matrice de contrôles : ce qui doit être déterministe, ce qui peut rester probabiliste",
+      "Harness d'évaluation minimal, exécutable chez vous",
+      'Plan séquencé P0 / P1 / P2',
+    ],
+    prix: 'Forfait, 100 % à la commande',
+  },
+  {
+    numero: '02',
+    nom: 'Build de système agentique',
+    format: 'Projet cadré par gates',
+    accroche:
+      "La construction du système, avec des points de passage explicites : aucun périmètre ne s'élargit sans décision écrite.",
+    livrables: [
+      "PRD gaté, avec critères d'acceptation et critères d'abandon",
+      'Architecture de décision : proposition, contrôle, validation humaine',
+      "Build, puis evals branchées en gate d'intégration continue",
+      'Transfert : documentation, corpus versionné, procédures',
+    ],
+    prix: 'Prix à la valeur — 20 à 30 % du ROI première année',
+  },
+  {
+    numero: '03',
+    nom: 'Exploitation & gouvernance',
+    format: 'Abonnement mensuel',
+    accroche:
+      "Un système agentique qui n'est pas surveillé dérive. Cette offre couvre la durée, pas la livraison.",
+    livrables: [
+      'Evals en continu et suivi de dérive',
+      'Gouvernance du corpus : qui approuve un changement de version, et ce qu’il advient des dossiers ouverts',
+      'Sécurité et revue des accès',
+      'Revue mensuelle avec décisions consignées',
+    ],
+    prix: 'Retainer',
+  },
+];
+---
+
+<Base
+  titre="Offres"
+  description="Trois offres : audit pilote → production, build de système agentique, exploitation et gouvernance."
+>
+  <Section>
+    <p class="text-menu text-accent">Offres</p>
+    <h1 class="mt-6 text-h1">Trois façons de travailler ensemble</h1>
+    <p class="mt-8 max-w-texte text-secondaire">
+      La séquence est volontaire : la première offre achète la confiance, la
+      deuxième le résultat, la troisième la durée. Rien n'oblige à les enchaîner,
+      et rien n'oblige à commencer par la deuxième.
+    </p>
+  </Section>
+
+  <Section separee>
+    <ol class="grid gap-6 lg:grid-cols-3">
+      {
+        offres.map((offre) => (
+          <li>
+            <Carte class="flex h-full flex-col">
+              <p class="font-titre text-menu text-secondaire">{offre.numero}</p>
+              <h2 class="mt-3 text-h3">{offre.nom}</h2>
+              <p class="mt-2 text-menu text-accent">{offre.format}</p>
+              <p class="mt-4 text-appui text-secondaire">{offre.accroche}</p>
+
+              <div class="mt-6 border-t border-trait pt-6">
+                <p class="text-menu text-secondaire">Livrables</p>
+                <ul class="mt-3 flex flex-col gap-3">
+                  {offre.livrables.map((l) => (
+                    <li class="flex gap-3 text-appui">
+                      <span aria-hidden="true" class="mt-3 h-px w-2 shrink-0 bg-trait" />
+                      <span>{l}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p class="mt-auto border-t border-trait pt-6 text-menu text-secondaire">
+                {offre.prix}
+              </p>
+            </Carte>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="mt-10 max-w-texte text-appui text-secondaire">
+      Aucun taux horaire n'est affiché, et il n'y a pas de quatrième option. Un
+      taux horaire facture du temps ; ces trois offres facturent une décision qui
+      tient.
+    </p>
+  </Section>
+
+  <Section separee>
+    <AppelAction
+      titre="Laquelle correspond à votre situation ?"
+      accroche="Trente minutes suffisent à trancher — et à dire si aucune ne correspond."
+    />
+  </Section>
+</Base>
