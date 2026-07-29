@@ -1,0 +1,31 @@
+---
+/**
+ * Badge — porte le statut honnête d'un système.
+ *
+ * Le ton est délibérément neutre : un statut « en développement » se lit
+ * aussi lisiblement qu'un statut « en production ». Le badge informe,
+ * il ne valorise pas.
+ */
+interface Props {
+  /** Texte libre : « En développement », « En production interne »… */
+  statut: string;
+  class?: string;
+}
+
+const { statut, class: classe = '' } = Astro.props;
+
+/** L'accent ne marque que ce qui tourne réellement — jamais une intention. */
+const enService = /production|actif/i.test(statut);
+---
+
+<span
+  class={`inline-flex items-center gap-2 rounded-base border border-trait px-3 py-1 text-menu ${
+    enService ? 'text-accent' : 'text-secondaire'
+  } ${classe}`}
+>
+  <span
+    aria-hidden="true"
+    class={`size-1.5 rounded-full ${enService ? 'bg-accent' : 'bg-secondaire'}`}
+  ></span>
+  {statut}
+</span>

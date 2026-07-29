@@ -1,0 +1,65 @@
+---
+import { NAV, SITE, CTA } from '../config/site';
+import Bouton from './Bouton.astro';
+
+const chemin = Astro.url.pathname;
+/** Une entrée est active sur sa page et sur ses sous-pages. */
+const estActif = (href: string) =>
+  chemin === href || chemin.startsWith(`${href}/`);
+---
+
+<header class="sticky top-0 z-40 border-b border-trait bg-fond/85 backdrop-blur">
+  <div
+    class="mx-auto flex max-w-large items-center justify-between gap-6 px-6 py-4 md:px-8"
+  >
+    <a href="/" class="font-titre text-menu font-semibold tracking-tight">
+      {SITE.nom}
+    </a>
+
+    <nav aria-label="Navigation principale" class="hidden md:block">
+      <ul class="flex items-center gap-8">
+        {
+          NAV.map((entree) => (
+            <li>
+              <a
+                href={entree.href}
+                aria-current={estActif(entree.href) ? 'page' : undefined}
+                class={`text-menu transition-colors duration-150 hover:text-texte ${
+                  estActif(entree.href) ? 'text-accent' : 'text-secondaire'
+                }`}
+              >
+                {entree.libelle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <Bouton href={CTA.reservation} variante="primaire" externe class="max-md:hidden">
+      Réserver un appel
+    </Bouton>
+  </div>
+
+  <!-- En mobile, la navigation se replie sous la barre plutôt que dans un menu
+       à ouvrir : cinq entrées ne justifient pas un composant interactif. -->
+  <nav aria-label="Navigation principale (mobile)" class="border-t border-trait md:hidden">
+    <ul class="mx-auto flex max-w-large gap-5 overflow-x-auto px-6 py-3">
+      {
+        NAV.map((entree) => (
+          <li>
+            <a
+              href={entree.href}
+              aria-current={estActif(entree.href) ? 'page' : undefined}
+              class={`whitespace-nowrap text-menu ${
+                estActif(entree.href) ? 'text-accent' : 'text-secondaire'
+              }`}
+            >
+              {entree.libelle}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

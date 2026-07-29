@@ -1,0 +1,50 @@
+---
+import { NAV, SITE, CTA } from '../config/site';
+
+const annee = new Date().getFullYear();
+---
+
+<footer class="border-t border-trait">
+  <div
+    class="mx-auto flex max-w-large flex-col gap-8 px-6 py-12 md:flex-row md:items-start md:justify-between md:px-8"
+  >
+    <div class="max-w-sm">
+      <p class="font-titre font-semibold">{SITE.nom}</p>
+      <p class="mt-2 text-appui text-secondaire">
+        Systèmes agentiques en environnement normé — l'IA propose, un moteur
+        déterministe contrôle, l'humain approuve.
+      </p>
+    </div>
+
+    <nav aria-label="Navigation de pied de page">
+      <ul class="flex flex-col gap-3">
+        {
+          NAV.map((entree) => (
+            <li>
+              <a
+                href={entree.href}
+                class="text-appui text-secondaire transition-colors duration-150 hover:text-texte"
+              >
+                {entree.libelle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-trait">
+    <div
+      class="mx-auto flex max-w-large flex-col gap-2 px-6 py-6 text-menu text-secondaire md:flex-row md:items-center md:justify-between md:px-8"
+    >
+      <p>© {annee} {SITE.nom}</p>
+      <a
+        href={`mailto:${CTA.email}`}
+        class="transition-colors duration-150 hover:text-texte"
+      >
+        {CTA.email}
+      </a>
+    </div>
+  </div>
+</footer>

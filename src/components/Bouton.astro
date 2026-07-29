@@ -1,0 +1,38 @@
+---
+/**
+ * Bouton — deux variantes seulement.
+ *
+ * `primaire` est réservé au CTA unique du site (réservation d'appel).
+ * Ne jamais poser deux boutons primaires concurrents sur une même page.
+ */
+interface Props {
+  href: string;
+  variante?: 'primaire' | 'secondaire';
+  externe?: boolean;
+  class?: string;
+}
+
+const {
+  href,
+  variante = 'secondaire',
+  externe = false,
+  class: classe = '',
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-base px-5 py-3 text-menu font-medium transition-colors duration-150';
+
+const variantes = {
+  primaire: 'bg-accent text-sur-accent hover:bg-accent/85',
+  secondaire:
+    'border border-trait bg-surface text-texte hover:border-accent hover:text-accent',
+};
+
+const attributsExternes = externe
+  ? { target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+<a href={href} class={`${base} ${variantes[variante]} ${classe}`} {...attributsExternes}>
+  <slot />
+</a>

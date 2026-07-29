@@ -1,0 +1,64 @@
+---
+import { CTA } from '../config/site';
+import Bouton from './Bouton.astro';
+
+/**
+ * Bloc de conversion — le seul CTA du site.
+ *
+ * Le bouton est l'unique action primaire. L'email figure en repli textuel
+ * discret sous le bouton : c'est une mention, jamais un second bouton
+ * concurrent de la réservation.
+ */
+interface Props {
+  titre?: string;
+  accroche?: string;
+  /** `sobre` : bouton seul, sans titre ni cadre — pour un usage en cours de page. */
+  variante?: 'bloc' | 'sobre';
+  class?: string;
+}
+
+const {
+  titre = 'Un pilote qui ne passe pas en production ?',
+  accroche = "Trente minutes pour qualifier le blocage : architecture, contrôles, preuve. Si ce n'est pas mon sujet, je le dis et j'oriente.",
+  variante = 'bloc',
+  class: classe = '',
+} = Astro.props;
+---
+
+{
+  variante === 'sobre' ? (
+    <div class={classe}>
+      <Bouton href={CTA.reservation} variante="primaire" externe>
+        {CTA.libelle}
+      </Bouton>
+      <p class="mt-3 text-menu text-secondaire">
+        ou par écrit —{' '}
+        <a
+          href={`mailto:${CTA.email}`}
+          class="underline underline-offset-4 transition-colors duration-150 hover:text-texte"
+        >
+          {CTA.email}
+        </a>
+      </p>
+    </div>
+  ) : (
+    <div class={`rounded-base border border-trait bg-surface p-8 md:p-12 ${classe}`}>
+      <h2 class="text-h2">{titre}</h2>
+      <p class="mt-4 max-w-texte text-secondaire">{accroche}</p>
+      <div class="mt-8">
+        <Bouton href={CTA.reservation} variante="primaire" externe>
+          {CTA.libelle}
+        </Bouton>
+        <p class="mt-3 text-menu text-secondaire">
+          ou par écrit —{' '}
+          <a
+            href={`mailto:${CTA.email}`}
+            class="underline underline-offset-4 transition-colors duration-150 hover:text-texte"
+          >
+            {CTA.email}
+          </a>
+        </p>
+      </div>
+    </div>
+  )
+}

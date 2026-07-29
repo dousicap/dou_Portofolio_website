@@ -1,0 +1,66 @@
+---
+/**
+ * Prose — styles typographiques du contenu long (MDX des études de cas).
+ *
+ * Les études de cas suivent toutes le même format : des paragraphes ouverts
+ * par un intertitre en gras (**Contexte.**, **Contrainte.**…). Le rendu
+ * s'appuie sur ce contrat plutôt que sur une hiérarchie de titres.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: classe = '' } = Astro.props;
+---
+
+<div class={`prose-systeme max-w-texte ${classe}`}>
+  <slot />
+</div>
+
+<style>
+  .prose-systeme :global(p) {
+    margin-block: 1.5rem;
+    color: var(--color-texte);
+  }
+
+  /* L'intertitre en gras ouvre chaque temps du récit : il se détache. */
+  .prose-systeme :global(p > strong:first-child) {
+    display: block;
+    margin-block-end: 0.25rem;
+    font-family: var(--font-titre);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .prose-systeme :global(ul) {
+    margin-block: 1.5rem;
+    padding-inline-start: 1.25rem;
+    list-style: none;
+  }
+
+  .prose-systeme :global(li) {
+    position: relative;
+    margin-block: 0.75rem;
+    color: var(--color-secondaire);
+  }
+
+  .prose-systeme :global(li)::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: calc(-1 * 1.25rem);
+    inset-block-start: 0.75em;
+    width: 0.5rem;
+    height: 1px;
+    background-color: var(--color-trait);
+  }
+
+  .prose-systeme :global(li > strong) {
+    color: var(--color-texte);
+    font-weight: 600;
+  }
+
+  .prose-systeme :global(a) {
+    color: var(--color-accent);
+    text-underline-offset: 3px;
+  }
+</style>

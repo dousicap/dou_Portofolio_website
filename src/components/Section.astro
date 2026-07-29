@@ -1,0 +1,33 @@
+---
+/**
+ * Section — rythme vertical et largeur de composition.
+ *
+ * `largeur="texte"` cadre à 72ch (texte suivi), `largeur="large"` à 1200px
+ * (grilles). Aucune page ne fixe sa propre largeur.
+ */
+interface Props {
+  largeur?: 'texte' | 'large';
+  /** Surlignage discret d'une section — bordure haute, jamais de fond coloré. */
+  separee?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const {
+  largeur = 'large',
+  separee = false,
+  id,
+  class: classe = '',
+} = Astro.props;
+
+const largeurs = {
+  texte: 'max-w-texte',
+  large: 'max-w-large',
+};
+---
+
+<section id={id} class={`${separee ? 'border-t border-trait' : ''} ${classe}`}>
+  <div class={`mx-auto ${largeurs[largeur]} px-6 py-16 md:px-8 md:py-24`}>
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOKENS — fichier unique.
+
+   C'est le SEUL fichier du dépôt autorisé à contenir un code hexadécimal.
+   Toute page, tout composant consomme ces tokens via les classes Tailwind
+   qu'ils génèrent (bg-fond, text-secondaire, border-trait…).
+
+   Un `grep` de vérification est documenté dans le README.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Couleurs ──
+     Thème sombre technique. Une seule couleur d'accent, réservée au CTA
+     et aux états actifs — jamais décorative. */
+  --color-fond: #0b0f14;
+  --color-surface: #131a22;
+  --color-texte: #e6edf3;
+  --color-secondaire: #8b98a5;
+  --color-trait: #1f2a35;
+  --color-accent: #3fb68b;
+
+  /* Texte posé SUR l'accent (bouton primaire). Contraste 7,6:1 avec l'accent. */
+  --color-sur-accent: #0b0f14;
+
+  /* ── Typographie ──
+     Titres : Inter Tight 600. Corps : Inter 400, interligne 1.7. */
+  --font-titre: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;
+  --font-corps: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  --text-corps: 1rem;
+  --text-corps--line-height: 1.7;
+  --text-appui: 0.9375rem;
+  --text-appui--line-height: 1.7;
+  --text-menu: 0.875rem;
+  --text-menu--line-height: 1.5;
+
+  --text-h1: clamp(2rem, 1.2rem + 3.2vw, 3.25rem);
+  --text-h1--line-height: 1.15;
+  --text-h2: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  --text-h2--line-height: 1.25;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.35;
+
+  /* ── Formes ──
+     Radius unique 8px. Aucune ombre : la profondeur vient des bordures 1px. */
+  --radius-base: 8px;
+
+  /* ── Largeurs de composition ──
+     72ch pour le texte suivi, 1200px pour les grilles. */
+  --container-texte: 72ch;
+  --container-large: 1200px;
+}
+
+/* L'échelle d'espacement Tailwind est déjà une échelle de 4 (0.25rem).
+   Elle est conservée telle quelle — ne pas introduire de valeur hors échelle. */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Décale les ancres pour ne pas passer sous la barre de navigation fixe. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-fond);
+    color: var(--color-texte);
+    font-family: var(--font-corps);
+    font-size: var(--text-corps);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-titre);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  /* Anneau de focus visible partout — condition d'accessibilité au clavier. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-sur-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
