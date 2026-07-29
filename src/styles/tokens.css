@@ -21,6 +21,13 @@
   --color-trait: #1f2a35;
   --color-accent: #3fb68b;
 
+  /* Bordure des CONTRÔLES interactifs (bouton secondaire).
+     Le trait décoratif à #1F2A35 plafonne à 1,32:1 : suffisant pour un
+     séparateur, insuffisant pour délimiter un composant cliquable
+     (WCAG 1.4.11, seuil 3:1). Cette valeur atteint 3,32:1 sur le fond et
+     3,03:1 sur une carte. Ne pas l'employer comme séparateur. */
+  --color-trait-controle: #546878;
+
   /* Texte posé SUR l'accent (bouton primaire). Contraste 7,6:1 avec l'accent. */
   --color-sur-accent: #0b0f14;
 
