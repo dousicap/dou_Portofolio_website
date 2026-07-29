@@ -1,0 +1,156 @@
+---
+import { getCollection } from 'astro:content';
+
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Carte from '../components/Carte.astro';
+import Badge from '../components/Badge.astro';
+import AppelAction from '../components/AppelAction.astro';
+import { SITE } from '../config/site';
+
+const systemes = (await getCollection('systemes')).sort(
+  (a, b) => a.data.ordre - b.data.ordre
+);
+
+/** Les trois différenciateurs — brief §1. Ce sont des preuves, pas des adjectifs. */
+const differenciateurs = [
+  {
+    titre: 'Décision auditable',
+    texte:
+      "Contrôles déterministes bloquants au-dessus du probabiliste, machine d'état de la proposition à l'écriture, traçabilité de bout en bout.",
+  },
+  {
+    titre: 'Preuve avant livraison',
+    texte:
+      "Harness d'évaluation en gate d'intégration continue, corpus de référence versionné, critères d'acceptation testables.",
+  },
+  {
+    titre: 'Souveraineté',
+    texte:
+      'Inférence auto-hébergeable, chiffrement par client, conformité FR/UE — et ouverture SYSCOHADA.',
+  },
+];
+
+const methode = [
+  {
+    temps: 'Plan',
+    texte:
+      "Le périmètre se ferme avant d'écrire du code : critères d'acceptation testables et critères d'abandon écrits à l'avance.",
+  },
+  {
+    temps: 'Build',
+    texte:
+      "L'architecture sépare ce que la machine propose de ce qu'un humain assume. La frontière est explicite, jamais implicite.",
+  },
+  {
+    temps: 'Verify',
+    texte:
+      "Un harness d'évaluation en gate : rien ne passe sur un score déclaré, tout passe sur un corpus mesuré.",
+  },
+  {
+    temps: 'Evolve',
+    texte:
+      'Toute évolution de périmètre passe par un decision log. Une règle qui change ne doit pas obliger à redéployer le moteur.',
+  },
+];
+---
+
+<Base titre={SITE.titre} description={SITE.description}>
+  <!-- ══ Thèse ══ -->
+  <Section class="pt-4">
+    <p class="text-menu text-accent">Systèmes agentiques en environnement normé</p>
+
+    <h1 class="mt-6 max-w-[20ch] text-h1">
+      La plupart des pilotes IA ne passent jamais en production. Je construis ceux
+      qui y arrivent — dans les métiers où une décision doit être justifiable.
+    </h1>
+
+    <p class="mt-8 max-w-texte text-secondaire">
+      J'aide les organisations en environnement normé à passer du pilote IA au
+      système agentique en production, avec une architecture où
+      <strong class="text-texte">l'IA propose</strong>, un
+      <strong class="text-texte">moteur déterministe contrôle</strong> et
+      <strong class="text-texte">l'humain approuve</strong>.
+    </p>
+
+    <AppelAction variante="sobre" class="mt-10" />
+  </Section>
+
+  <!-- ══ Les trois preuves ══ -->
+  <Section separee>
+    <h2 class="text-h2">Ce qui change concrètement</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {
+        differenciateurs.map((d, i) => (
+          <Carte>
+            <p class="font-titre text-menu text-secondaire">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <h3 class="mt-3 text-h3">{d.titre}</h3>
+            <p class="mt-3 text-appui text-secondaire">{d.texte}</p>
+          </Carte>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- ══ Les systèmes ══ -->
+  <Section separee>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-h2">Systèmes construits</h2>
+      <a
+        href="/systemes"
+        class="text-menu text-accent underline underline-offset-4"
+      >
+        Voir les quatre études de cas
+      </a>
+    </div>
+
+    <p class="mt-4 max-w-texte text-secondaire">
+      Chaque statut est affiché tel quel. Aucun résultat client n'est revendiqué
+      tant qu'il n'y a pas de client payant signé.
+    </p>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {
+        systemes.map((s) => (
+          <Carte href={`/systemes/${s.id}`}>
+            <Badge statut={s.data.statut} />
+            <h3 class="mt-4 text-h3">{s.data.titre}</h3>
+            <p class="mt-3 text-appui text-secondaire">{s.data.resume}</p>
+            <p class="mt-4 text-menu text-secondaire">{s.data.domaine}</p>
+          </Carte>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- ══ Méthode ══ -->
+  <Section separee>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-h2">La méthode en quatre temps</h2>
+      <a href="/methode" class="text-menu text-accent underline underline-offset-4">
+        Le détail des gates
+      </a>
+    </div>
+
+    <ol class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {
+        methode.map((m, i) => (
+          <li class="border-t border-trait pt-6">
+            <p class="font-titre text-menu text-secondaire">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <h3 class="mt-2 text-h3 text-accent">{m.temps}</h3>
+            <p class="mt-3 text-appui text-secondaire">{m.texte}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- ══ Conversion ══ -->
+  <Section separee>
+    <AppelAction />
+  </Section>
+</Base>

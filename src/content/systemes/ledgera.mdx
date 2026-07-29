@@ -1,0 +1,37 @@
+---
+titre: "Ledgera — moteur de décision agentique pour l'expertise comptable"
+resume: "Une plateforme multi-agents où l'IA propose, un moteur déterministe contrôle et l'expert approuve."
+statut: "Produit propriétaire — en développement"
+domaine: "Comptabilité réglementée (FR / SYSCOHADA)"
+stack: ["LangGraph", "Python", "PostgreSQL", "Qdrant", "vLLM", "Docker"]
+ordre: 1
+---
+
+**Contexte.** Les cabinets d'expertise comptable traitent des masses de pièces
+dans un cadre normé (plan comptable, normes professionnelles, réforme de la
+facturation électronique). L'automatisation générique y échoue : une écriture
+comptable n'est pas une réponse plausible, c'est une décision opposable.
+
+**Contrainte.** Aucune sortie probabiliste ne peut engager le cabinet. Il faut
+donc une frontière explicite entre ce que la machine propose et ce qu'un humain
+assume — et cette frontière doit être visible, traçable et testable.
+
+**Système.** Un pipeline multi-agents orchestré (extraction, classification,
+écriture, validation, remédiation) posé sur trois principes :
+- une **machine d'état** unique de la proposition à l'écriture comptabilisée,
+  chaque transition horodatée et attribuée ;
+- des **contrôles déterministes bloquants** qui priment toujours sur le score de
+  confiance du modèle ;
+- un **corpus normatif versionné**, jamais codé en dur dans le cœur applicatif :
+  changer la règle ne veut pas dire redéployer le moteur.
+
+**Preuve.** Un harness d'évaluation branché en gate d'intégration continue : un
+corpus de cas de référence, des contrôles typés, des seuils de confiance mesurés
+et non déclarés. Une évolution de périmètre ne passe que par un decision log,
+avec des critères d'abandon écrits à l'avance.
+
+**Statut.** En développement, pilote cabinet en préparation. Aucun résultat
+client n'est revendiqué à ce stade.
+
+**Ce que ça démontre.** Concevoir une architecture de décision auditable dans un
+domaine régulé, et la tenir dans le temps face à une équipe de développement.

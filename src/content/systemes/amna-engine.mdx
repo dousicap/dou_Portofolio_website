@@ -1,0 +1,30 @@
+---
+titre: "AMNA Engine — sourcing de pièces automobiles en copilote"
+resume: "Le même moteur de décision, transposé au commerce transfrontalier Europe / Afrique de l'Ouest."
+statut: "Spécification complète — build en cours"
+domaine: "Import-export, sourcing B2B"
+stack: ["LangGraph", "PostgreSQL", "Docker", "WhatsApp"]
+ordre: 2
+---
+
+**Contexte.** Le sourcing de pièces détachées vers l'Afrique de l'Ouest se joue
+sur WhatsApp : demandes en langage naturel, références partielles, fournisseurs
+dispersés sur plusieurs marchés. Le coût réel est le temps d'identification et
+l'erreur de référence.
+
+**Contrainte.** Mode **copilote strict** : l'agent ne commande jamais, ne
+s'engage jamais sur un prix. Il prépare une décision, un humain la prend.
+
+**Système.** Extraction de l'intention depuis la conversation, résolution de
+référence contre un corpus de cas réels annotés, consultation multi-fournisseurs,
+consolidation logistique, restitution d'une proposition chiffrée à valider.
+Décisions d'architecture tracées en ADR, socle conteneurisé reproductible.
+
+**Preuve.** Un corpus de cas réels annotés sert de base d'évaluation : la qualité
+de résolution se mesure contre des cas connus, pas contre une impression.
+
+**Statut.** Spécification technique complète, build en cours.
+
+**Ce que ça démontre.** La généricité du moteur : mêmes primitives — proposition,
+contrôle, validation humaine, corpus versionné — dans un domaine sans rapport
+avec la comptabilité.

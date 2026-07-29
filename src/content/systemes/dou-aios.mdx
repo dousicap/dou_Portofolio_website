@@ -1,0 +1,31 @@
+---
+titre: "DOU-AIOS — système d'exploitation d'agents et orchestration multi-agents"
+resume: "Un harness personnel : compétences versionnées, gates de revue, garde-fous de sécurité."
+statut: "En production interne"
+domaine: "Outillage agentique / harness engineering"
+stack: ["Claude Code", "MCP", "Python", "Docker", "Git"]
+ordre: 3
+---
+
+**Contexte.** Un agent de codage seul produit du volume, pas de la fiabilité. Le
+facteur limitant n'est pas le modèle, c'est le harness autour : contexte,
+procédures, vérification, mémoire.
+
+**Contrainte.** Aucune tâche ne doit être déclarée terminée sur parole. Aucune
+commande destructrice ne doit pouvoir s'exécuter par accident.
+
+**Système.** Un OS d'agents composé de compétences versionnées et routées sans
+collision, d'une bibliothèque de références, de routines opérationnelles, et
+d'une orchestration multi-agents où un fichier de tâche unique fait autorité —
+planificateur, exécuteur, réviseurs de plan et de code, gates de passage.
+Sécurité : hooks de blocage de commandes dangereuses, exécution en bac à sable
+conteneurisé, signature des commits, jetons d'accès à portée fine.
+
+**Preuve.** Chaque tâche exige des preuves typées avant clôture : log de build,
+test exécuté, artefact produit. Le statut « terminé » n'est jamais déclaratif.
+
+**Statut.** En production interne, utilisé quotidiennement.
+
+**Ce que ça démontre.** Le harness engineering — savoir faire produire un
+résultat vérifiable à une équipe d'agents, ce qui est exactement le problème des
+entreprises bloquées au stade du pilote.
