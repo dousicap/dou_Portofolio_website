@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Bouton from '../components/Bouton.astro';
+import { CTA } from '../config/site';
+
+/**
+ * Aucun formulaire : un formulaire suppose un back-end, donc une base de
+ * données et une collecte — hors périmètre v1 et incohérent avec le discours
+ * de souveraineté. Le CTA unique reste la réservation d'appel.
+ */
+const attendu = [
+  "Le contexte métier et la contrainte réglementaire qui pèse dessus",
+  "Où le pilote bloque aujourd'hui — ou à quel stade vous en êtes",
+  'Ce qui doit rester décidé par un humain, selon vous',
+];
+---
+
+<Base
+  titre="Contact"
+  description="Réserver un appel de cadrage de trente minutes, ou écrire directement."
+>
+  <Section largeur="texte">
+    <p class="text-menu text-accent">Contact</p>
+    <h1 class="mt-6 text-h1">Un appel de cadrage, trente minutes</h1>
+    <p class="mt-8 text-secondaire">
+      L'appel sert à qualifier, pas à vendre. À la fin, soit le sujet est clair
+      et je propose un cadre de travail, soit ce n'est pas mon domaine et je le
+      dis — c'est un résultat utile aussi.
+    </p>
+
+    <div class="mt-10">
+      <Bouton href={CTA.reservation} variante="primaire" externe>
+        {CTA.libelle}
+      </Bouton>
+      <p class="mt-3 text-menu text-secondaire">
+        ou par écrit —{' '}
+        <a
+          href={`mailto:${CTA.email}`}
+          class="underline underline-offset-4 transition-colors duration-150 hover:text-texte"
+        >
+          {CTA.email}
+        </a>
+      </p>
+    </div>
+  </Section>
+
+  <Section largeur="texte" separee>
+    <h2 class="text-h2">Ce qui rend l'appel utile</h2>
+    <p class="mt-6 text-secondaire">
+      Rien n'est obligatoire, mais trois éléments transforment une conversation
+      exploratoire en diagnostic.
+    </p>
+    <ul class="mt-8 flex flex-col divide-y divide-trait border-y border-trait">
+      {
+        attendu.map((a, i) => (
+          <li class="flex gap-5 py-5">
+            <span class="font-titre text-menu text-secondaire">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span>{a}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-8 text-appui text-secondaire">
+      Aucun document confidentiel n'est nécessaire à ce stade, et rien de ce qui
+      est échangé ne figurera sur ce site.
+    </p>
+  </Section>
+</Base>
