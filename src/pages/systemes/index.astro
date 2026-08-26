@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { lien } from '../../config/lien';
 
 import Base from '../../layouts/Base.astro';
 import Section from '../../components/Section.astro';
@@ -32,7 +33,7 @@ const systemes = (await getCollection('systemes')).sort(
       {
         systemes.map((s) => (
           <li>
-            <Carte href={`/systemes/${s.id}`} class="h-full">
+            <Carte href={lien(`/systemes/${s.id}`)} class="h-full">
               <Badge statut={s.data.statut} />
               <h2 class="mt-4 text-h3">{s.data.titre}</h2>
               <p class="mt-3 text-appui text-secondaire">{s.data.resume}</p>

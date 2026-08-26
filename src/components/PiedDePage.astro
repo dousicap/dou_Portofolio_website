@@ -1,5 +1,6 @@
 ---
 import { NAV, SITE, CTA } from '../config/site';
+import { lien } from '../config/lien';
 
 const annee = new Date().getFullYear();
 ---
@@ -22,7 +23,7 @@ const annee = new Date().getFullYear();
           NAV.map((entree) => (
             <li>
               <a
-                href={entree.href}
+                href={lien(entree.href)}
                 class="text-appui text-secondaire transition-colors duration-150 hover:text-texte"
               >
                 {entree.libelle}

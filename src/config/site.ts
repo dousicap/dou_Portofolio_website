@@ -7,8 +7,16 @@
  */
 
 export const SITE = {
-  /** Domaine de production. Sert au sitemap et aux URL canoniques. */
-  url: 'https://papaamadouba.fr',
+  /**
+   * Origine de production. Sert au sitemap et aux URL canoniques.
+   *
+   * Aujourd'hui : GitHub Pages, site de projet, donc servi sous `base`.
+   * Le jour ou un domaine propre existe : mettre l'origine ici et repasser
+   * `base` a '/'. Aucun autre fichier n'est a toucher.
+   */
+  url: 'https://dousicap.github.io',
+  /** Chemin de deploiement. '/' des qu'un domaine propre remplace github.io. */
+  base: '/dou_Portofolio_website',
   nom: 'Papa Amadou BA',
   /** Utilisé dans le <title> de chaque page et l'Open Graph. */
   titre: 'Papa Amadou BA — systèmes agentiques en environnement normé',
@@ -24,8 +32,16 @@ export const SITE = {
  * sur Cal.com, puis remplacer cette seule chaîne.
  */
 export const CTA = {
-  reservation: 'https://cal.com/REMPLACER-MOI/cadrage-30min',
-  libelle: 'Réserver un appel de cadrage',
+  /**
+   * UNE SEULE VALEUR A CHANGER quand l'evenement Cal.com existe.
+   *
+   * En attendant, le CTA pointe sur un courriel pre-rempli plutot que sur une
+   * URL Cal.com inexistante : un bouton qui mene a une page 404 coute plus cher
+   * que l'absence de reservation en ligne. Le parcours reste a une seule action.
+   */
+  reservation:
+    'mailto:papamadouba@gmail.com?subject=Appel%20de%20cadrage%20%E2%80%94%2030%20min&body=Contexte%20metier%20%3A%0AContrainte%20reglementaire%20%3A%0AOu%20le%20pilote%20bloque%20aujourd%27hui%20%3A%0A',
+  libelle: 'Demander un appel de cadrage',
   /** Repli textuel discret sous le bouton — jamais un second bouton concurrent. */
   email: 'papamadouba@gmail.com',
 } as const;

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { lien } from '../config/lien';
 
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
@@ -15,19 +16,19 @@ const systemes = (await getCollection('systemes')).sort(
 /** Les trois différenciateurs — brief §1. Ce sont des preuves, pas des adjectifs. */
 const differenciateurs = [
   {
-    titre: 'Décision auditable',
+    titre: 'Vous pouvez justifier chaque décision',
     texte:
-      "Contrôles déterministes bloquants au-dessus du probabiliste, machine d'état de la proposition à l'écriture, traçabilité de bout en bout.",
+      "L'IA propose, un moteur de règles vérifie, un humain signe. Chaque étape est horodatée et attribuée — devant un client, un auditeur ou l'ordre.",
   },
   {
-    titre: 'Preuve avant livraison',
+    titre: 'Rien n\'est livré sur parole',
     texte:
-      "Harness d'évaluation en gate d'intégration continue, corpus de référence versionné, critères d'acceptation testables.",
+      'Le système est mesuré sur vos propres dossiers avant d\'être branché. Vous voyez un score sur des cas réels, pas une démonstration.',
   },
   {
-    titre: 'Souveraineté',
+    titre: 'Vos données ne sortent pas',
     texte:
-      'Inférence auto-hébergeable, chiffrement par client, conformité FR/UE — et ouverture SYSCOHADA.',
+      'Hébergement chez vous ou en Europe, chiffrement par client. Conforme RGPD, et compatible SYSCOHADA pour les cabinets qui travaillent sur les deux référentiels.',
   },
 ];
 
@@ -99,7 +100,7 @@ const methode = [
     <div class="flex flex-wrap items-end justify-between gap-4">
       <h2 class="text-h2">Systèmes construits</h2>
       <a
-        href="/systemes"
+        href={lien('/systemes')}
         class="text-menu text-accent underline underline-offset-4"
       >
         Voir les quatre études de cas
@@ -107,14 +108,14 @@ const methode = [
     </div>
 
     <p class="mt-4 max-w-texte text-secondaire">
-      Chaque statut est affiché tel quel. Aucun résultat client n'est revendiqué
-      tant qu'il n'y a pas de client payant signé.
+      Chaque statut est affiché tel quel, y compris quand le système est encore
+      en construction. Vous saurez toujours ce qui tourne et ce qui se bâtit.
     </p>
 
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       {
         systemes.map((s) => (
-          <Carte href={`/systemes/${s.id}`}>
+          <Carte href={lien(`/systemes/${s.id}`)}>
             <Badge statut={s.data.statut} />
             <h3 class="mt-4 text-h3">{s.data.titre}</h3>
             <p class="mt-3 text-appui text-secondaire">{s.data.resume}</p>
@@ -129,7 +130,7 @@ const methode = [
   <Section separee>
     <div class="flex flex-wrap items-end justify-between gap-4">
       <h2 class="text-h2">La méthode en quatre temps</h2>
-      <a href="/methode" class="text-menu text-accent underline underline-offset-4">
+      <a href={lien('/methode')} class="text-menu text-accent underline underline-offset-4">
         Le détail des gates
       </a>
     </div>
@@ -147,6 +148,45 @@ const methode = [
         ))
       }
     </ol>
+  </Section>
+
+  <!-- ══ Point d'entrée ══
+       Une seule offre est nommée sur l'accueil, la moins engageante. Les trois
+       vivent sur /offres ; en montrer trois ici, c'est demander un arbitrage
+       avant d'avoir gagné la confiance. ══ -->
+  <Section separee>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-h2">Par où ça commence</h2>
+      <a href={lien('/offres')} class="text-menu text-accent underline underline-offset-4">
+        Les trois offres
+      </a>
+    </div>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-[1fr_1fr]">
+      <div>
+        <p class="font-titre text-menu text-secondaire">01</p>
+        <h3 class="mt-3 text-h3">Audit Pilote → Production</h3>
+        <p class="mt-2 text-menu text-secondaire">Forfait, 5 à 10 jours</p>
+        <p class="mt-4 max-w-texte text-appui text-secondaire">
+          Votre pilote fonctionne en démonstration et bloque avant la
+          production. L'audit dit où il bloque, ce qu'il faut pour le débloquer,
+          et dans quel ordre. Périmètre fermé, prix fixe, aucune suite obligée.
+        </p>
+      </div>
+
+      <ul class="flex flex-col justify-center gap-3 border-t border-trait pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+        <li class="text-appui text-secondaire">
+          Registre des écarts entre le pilote et une mise en production
+        </li>
+        <li class="text-appui text-secondaire">
+          Ce qui doit être contrôlé par des règles, ce qui peut rester au modèle
+        </li>
+        <li class="text-appui text-secondaire">
+          Un jeu de tests exécutable chez vous, sur vos dossiers
+        </li>
+        <li class="text-appui text-secondaire">Un plan séquencé P0 / P1 / P2</li>
+      </ul>
+    </div>
   </Section>
 
   <!-- ══ Conversion ══ -->

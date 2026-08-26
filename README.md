@@ -27,30 +27,21 @@ de build, jamais un livrable versionné.
 
 ---
 
-## À remplacer avant mise en ligne
+## Ce qui reste à faire, et ce qui ne bloque plus
 
-Tout est regroupé dans **`src/config/site.ts`** — aucune de ces valeurs n'est
-codée en dur ailleurs dans le dépôt (vérifiable par les `grep` plus bas).
+Le site part en ligne tel quel. Rien de ce qui suit n'empêche de publier ;
+chacun le rend meilleur.
 
-| Constante | Valeur actuelle | À faire |
+| Point | État | Geste |
 |---|---|---|
-| `CTA.reservation` | `https://cal.com/REMPLACER-MOI/cadrage-30min` | Créer l'événement « Appel de cadrage — 30 min » sur Cal.com et coller l'URL |
-| `SITE.url` | `https://papaamadouba.fr` | Mettre le domaine réel — sert au sitemap, aux URL canoniques et à `robots.txt` |
+| `CTA.reservation` | pointe sur un courriel pré-rempli | Créer l'événement « Appel de cadrage — 30 min » sur Cal.com et coller l'URL. **Une seule chaîne à changer** dans `src/config/site.ts`. |
+| Photo | absente, et invisible | Déposer une photo réelle dans `public/`, puis remettre la `<Section>` supprimée dans `src/pages/a-propos.astro` (le commentaire indique où). |
+| Domaine | `dousicap.github.io/dou_Portofolio_website` | Acheter le domaine, ajouter un `CNAME`, mettre `SITE.url` à l'origine réelle et `SITE.base` à `'/'`. Aucun autre fichier à toucher. |
+| Récit `/a-propos` | deux précisions retirées | Durée réelle de l'import-export, intitulé de la formation. Les phrases tiennent sans, elles gagnent avec. |
 
-Deux valeurs restent également à confirmer dans le texte de `/a-propos`, marquées
-`XX_A_VERIFIER_XX` dans `src/pages/a-propos.astro` :
-
-- la durée réelle de l'activité d'import-export ;
-- l'intitulé exact du diplôme.
-
-```bash
-grep -rn "REMPLACER-MOI\|XX_A_VERIFIER_XX" src/
-```
-
-Enfin, `/a-propos` réserve un **emplacement photo** encore vide. Aucune image de
-banque d'images n'y sera placée : déposer une photo réelle (fond neutre, cadrage
-buste) dans `public/` et remplacer le bloc commenté `<figure>` de
-`src/pages/a-propos.astro` par une `<img>`.
+Un bouton qui mène à une page inexistante coûte plus cher que l'absence de
+réservation en ligne : c'est pourquoi le CTA est un courriel pré-rempli tant que
+Cal.com n'existe pas, et non une URL `REMPLACER-MOI`.
 
 ---
 
@@ -148,9 +139,14 @@ grep -rn 'cal\.com\|papamadouba' src/ | grep -v 'src/config/site.ts'
 
 # 3. Le build passe
 npm run build
+
+# 4. Aucun lien interne ne perd le préfixe de base (sinon : 404 en production)
+grep -rohE 'href="/[^"]*"' dist --include='*.html' | grep -v 'href="/dou_Portofolio_website'
 ```
 
-Les trois doivent renvoyer un résultat vide (1 et 2) ou sortir en succès (3).
+Les 1, 2 et 4 doivent renvoyer un résultat vide, le 3 sortir en succès. Le
+quatrième est aussi joué par le workflow de déploiement : un lien qui perd la
+base ne casse pas le build, seulement le site en ligne.
 
 ### Contraste
 
@@ -169,8 +165,20 @@ Ne pas employer `--color-trait` pour délimiter un élément interactif : c'est 
 
 ## Déploiement
 
-Aucune configuration de déploiement n'est versionnée — ni Cloudflare, ni Vercel,
-ni GitHub Actions. C'est délibéré : la mise en production est pilotée à la main.
+Automatique. Tout `push` sur `main` déclenche
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) : `npm ci`,
+`npm run build`, contrôle des liens internes, publication sur GitHub Pages.
 
-Pour brancher Cloudflare Pages : commande de build `npm run build`, dossier de
-sortie `dist/`, aucune variable d'environnement requise.
+**Réglage à faire une seule fois** — Settings > Pages > Source : choisir
+**GitHub Actions**. Tant que la source reste « Deploy from a branch », Pages
+tente un build Jekyll, ne produit rien, et continue de servir l'ancien
+déploiement. C'est exactement la raison pour laquelle ce site n'a jamais été
+publié jusqu'ici.
+
+Redéployer sans commit : onglet Actions > « Deploiement du site » > Run workflow.
+
+### Changer de domaine plus tard
+
+Trois gestes, aucun code à réécrire : ajouter le domaine dans Settings > Pages,
+mettre `SITE.url` à la nouvelle origine et `SITE.base` à `'/'`. La fonction
+`lien()` devient l'identité, les liens continuent de fonctionner.

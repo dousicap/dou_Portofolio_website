@@ -3,6 +3,7 @@
 // français et aucune requête ne part vers un tiers (cohérent avec le discours
 // de souveraineté). Ajouter un sous-ensemble ici si /en voit le jour.
 import '@fontsource-variable/inter/wght.css';
+import { lien } from '../config/lien';
 import '@fontsource-variable/inter-tight/wght.css';
 import '../styles/tokens.css';
 
@@ -31,8 +32,8 @@ const canonique = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
     <title>{titreComplet}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonique} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={lien('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={lien('/sitemap-index.xml')} />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:type" content="website" />
