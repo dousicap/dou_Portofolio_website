@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { lien } from '../../config/lien';
 import type { GetStaticPaths } from 'astro';
 
 import Base from '../../layouts/Base.astro';
@@ -30,7 +31,7 @@ const suivant = tous[(position + 1) % tous.length];
 <Base titre={systeme.data.titre} description={systeme.data.resume}>
   <Section largeur="texte">
     <a
-      href="/systemes"
+      href={lien('/systemes')}
       class="text-menu text-secondaire transition-colors duration-150 hover:text-texte"
     >
       ← Tous les systèmes
@@ -70,7 +71,7 @@ const suivant = tous[(position + 1) % tous.length];
 
   <Section largeur="texte" separee>
     <a
-      href={`/systemes/${suivant.id}`}
+      href={lien(`/systemes/${suivant.id}`)}
       class="block rounded-base border border-trait bg-surface p-6 transition-colors duration-150 hover:border-accent"
     >
       <p class="text-menu text-secondaire">Système suivant</p>

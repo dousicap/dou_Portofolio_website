@@ -8,8 +8,10 @@ import { SITE } from '../config/site';
  * Page récit, pas CV. Aucune liste d'expériences, aucun mur de certifications,
  * aucune timeline, aucun nom de tiers, aucun chiffre de résultat.
  *
- * XX_A_VERIFIER_XX marque les valeurs à confirmer avant mise en ligne
- * (durée d'activité, intitulé exact du diplôme). Voir README.
+ * Deux precisions ont ete retirees plutot que devinees : la duree exacte de
+ * l'activite d'import-export et l'intitule de la formation. Les phrases tiennent
+ * sans elles. Les remettre quand elles seront confirmees rend le recit plus
+ * concret, mais rien n'attend apres elles pour publier.
  */
 ---
 
@@ -28,23 +30,12 @@ import { SITE } from '../config/site';
     </p>
   </Section>
 
-  <Section largeur="texte" separee>
-    <!-- Emplacement réservé à une photo réelle. Aucune image de banque d'images.
-         Déposer le fichier dans public/ et remplacer ce bloc par une <img>. -->
-    <figure>
-      <div
-        class="flex aspect-4/3 items-center justify-center rounded-base border border-dashed border-trait bg-surface p-8 text-center"
-      >
-        <p class="max-w-xs text-menu text-secondaire">
-          Emplacement réservé à une photo réelle — fond neutre, cadrage buste.
-          Aucune image de banque d'images ne sera utilisée ici.
-        </p>
-      </div>
-      <figcaption class="mt-3 text-menu text-secondaire">
-        {SITE.nom}
-      </figcaption>
-    </figure>
-  </Section>
+  <!-- PHOTO — section volontairement absente du rendu.
+       Un encart « emplacement réservé » visible en ligne coûte plus cher que
+       l'absence de portrait : il signale un site inachevé. Pour l'activer :
+       déposer une photo réelle (fond neutre, cadrage buste) dans public/ puis
+       remettre une <Section> avec une <img>. Aucune image de banque d'images. -->
+
 
   <Section largeur="texte" separee>
     <article class="flex flex-col gap-16">
@@ -52,7 +43,7 @@ import { SITE } from '../config/site';
       <div>
         <p class="font-titre text-menu text-secondaire">01 — L'opérateur</p>
         <h2 class="mt-3 text-h2">
-          Pendant XX_A_VERIFIER_XX ans, j'ai été celui qui signe
+          J'ai longtemps été celui qui signe
         </h2>
         <div class="mt-6 flex flex-col gap-6 text-secondaire">
           <p>
@@ -88,8 +79,8 @@ import { SITE } from '../config/site';
             J'avais commencé à automatiser mes propres analyses — prévision de
             demande, arbitrages de stock, marges. Ce qui n'était qu'un outil de
             gestion est devenu le sujet principal. J'ai repris une formation
-            longue en XX_A_VERIFIER_XX pour construire ce que je n'avais fait
-            jusque-là qu'utiliser.
+            longue pour construire ce que je n'avais fait jusque-là
+            qu'utiliser.
           </p>
           <p>
             Ce qui m'a frappé en arrivant dans ce milieu, c'est le décalage. Des

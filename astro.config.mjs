@@ -8,6 +8,7 @@ import { SITE } from './src/config/site.ts';
 
 export default defineConfig({
   site: SITE.url,
+  base: SITE.base,
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
