@@ -31,6 +31,10 @@
   /* Texte posé SUR l'accent (bouton primaire). Contraste 7,6:1 avec l'accent. */
   --color-sur-accent: #0b0f14;
 
+  /* État « attention » des maquettes d'interface (contrôle bloquant,
+     validation requise). Contraste 8,9:1 sur le fond. Jamais décoratif. */
+  --color-alerte: #e3b341;
+
   /* ── Typographie ──
      Titres : Inter Tight 600. Corps : Inter 400, interligne 1.7. */
   --font-titre: 'Inter Tight Variable', 'Inter Tight', system-ui, sans-serif;

@@ -9,6 +9,10 @@ import Section from '../../components/Section.astro';
 import Badge from '../../components/Badge.astro';
 import Prose from '../../components/Prose.astro';
 import AppelAction from '../../components/AppelAction.astro';
+import LedgeraMaquette from '../../components/maquettes/LedgeraMaquette.astro';
+
+/** Maquettes d'interface, affichées en pleine largeur, par identifiant de système. */
+const maquettes: Record<string, any> = { ledgera: LedgeraMaquette };
 
 export const getStaticPaths = (async () => {
   const systemes = await getCollection('systemes');
@@ -20,6 +24,7 @@ export const getStaticPaths = (async () => {
 
 const { systeme } = Astro.props;
 const { Content } = await render(systeme);
+const Maquette = maquettes[systeme.id];
 
 /** Navigation entre études de cas, dans l'ordre déclaré du frontmatter. */
 const tous = (await getCollection('systemes')).sort(
@@ -63,6 +68,14 @@ const suivant = tous[(position + 1) % tous.length];
       </div>
     </dl>
   </Section>
+
+  {
+    Maquette && (
+      <Section separee>
+        <Maquette />
+      </Section>
+    )
+  }
 
   {
     systeme.data.image && (
