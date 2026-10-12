@@ -1,8 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import AppelAction from '../components/AppelAction.astro';
 import { SITE } from '../config/site';
+import portrait from '../assets/portrait.jpg';
 
 /**
  * Page récit, pas CV. Aucune liste d'expériences, aucun mur de certifications,
@@ -30,11 +33,21 @@ import { SITE } from '../config/site';
     </p>
   </Section>
 
-  <!-- PHOTO — section volontairement absente du rendu.
-       Un encart « emplacement réservé » visible en ligne coûte plus cher que
-       l'absence de portrait : il signale un site inachevé. Pour l'activer :
-       déposer une photo réelle (fond neutre, cadrage buste) dans public/ puis
-       remettre une <Section> avec une <img>. Aucune image de banque d'images. -->
+  <Section largeur="texte" separee>
+    <figure class="flex flex-col gap-4 sm:flex-row sm:items-end">
+      <Image
+        src={portrait}
+        alt="Portrait de Papa Amadou BA"
+        widths={[280, 560]}
+        sizes="(min-width: 640px) 280px, 60vw"
+        class="w-[min(280px,60%)] rounded-base border border-trait"
+        loading="eager"
+      />
+      <figcaption class="text-menu text-secondaire sm:pb-1">
+        {SITE.nom}
+      </figcaption>
+    </figure>
+  </Section>
 
 
   <Section largeur="texte" separee>

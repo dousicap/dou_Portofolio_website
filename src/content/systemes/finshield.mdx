@@ -1,0 +1,23 @@
+---
+titre: "FinShield AI — scoring de risque et détection de fraude en temps réel"
+resume: "Un score composite où le modèle et le moteur de règles comptent séparément, et où chaque décision reste rejouable."
+statut: "Démonstrateur fonctionnel — jeu de données synthétique"
+domaine: "Fraude financière, conformité"
+stack: ["Python", "Moteur de règles", "Scoring ML", "PostgreSQL", "Docker"]
+ordre: 2
+image: "../../assets/finshield-risk-scoring.png"
+imageAlt: "Écran de scoring de risque de FinShield AI : distribution du risque sur 5 000 entités, tendance sur sept jours, calcul de score à la demande, et profil détaillé d'une entité avec ses cinq scores composants."
+imageLegende: "Écran de scoring, sur données synthétiques. Le score global se décompose en cinq composants affichés séparément — dont ML Model Score et Rule Engine Score, jamais fondus dans un chiffre unique."
+---
+
+**Contexte.** Un dispositif antifraude doit trancher vite et se justifier lentement. L'alerte part en quelques centaines de millisecondes ; la défense de cette même alerte, devant un client mécontent ou un régulateur, se joue des semaines plus tard, sur des faits qu'il faut pouvoir reconstituer.
+
+**Contrainte.** Un score unique sorti d'un modèle est indéfendable. Quand un compte est gelé et que le client demande pourquoi, « le modèle a donné 0,94 » n'est pas une réponse : ni le chargé de conformité ni l'avocat ne peuvent en faire quoi que ce soit. Il faut savoir quelle part vient d'une règle explicite, quelle part vient d'un apprentissage, et lequel des deux a fait basculer la décision.
+
+**Système.** Le score composite ne fusionne pas ses sources, il les expose. Cinq composants sont calculés et affichés séparément — modèle, moteur de règles, vélocité, comportement, graphe de relations — et le moteur de règles reste souverain : une règle explicite qui se déclenche l'emporte sur un score de confiance élevé, jamais l'inverse. Autour, les briques qui rendent la décision opposable : un journal d'audit, une gestion de cas, des listes de surveillance versionnées, un graphe de relations entre entités.
+
+**Preuve.** Le système tourne sur cinq mille entités de démonstration, avec un historique de scores par entité, une tendance à sept jours et un recalcul à la demande dont on peut faire varier les entrées pour observer le déplacement de chaque composant. La capture ci-dessus est cet écran, tel qu'il s'exécute.
+
+**Statut.** Démonstrateur fonctionnel. Les entités, les montants et les noms sont synthétiques — aucune donnée réelle n'a été utilisée, et l'écran n'est pas issu d'un déploiement client.
+
+**Ce que ça démontre.** Que la traçabilité n'est pas une couche ajoutée après coup, mais une conséquence de l'architecture. En refusant de fondre le modèle et les règles dans un chiffre unique, on obtient gratuitement ce qu'un système opaque ne rattrapera jamais : la capacité d'expliquer une décision six mois plus tard, à quelqu'un qui n'était pas là quand elle a été prise.

@@ -6,3 +6,10 @@ dist/
 !.env.example
 .DS_Store
 npm-debug.log*
+
+# Sources personnelles non publiables : CV (education, telephone, adresse) et
+# originaux de photos. Le site est une page recit, pas un CV — un PDF de CV
+# dans un depot public dit le contraire de ce que la page raconte.
+# Les versions retenues et recadrees vivent dans src/assets/.
+resume/
+Photo/
