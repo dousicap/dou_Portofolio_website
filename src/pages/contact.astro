@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import Bouton from '../components/Bouton.astro';
 import { CTA } from '../config/site';
+import { lien } from '../config/lien';
 
 /**
  * Aucun formulaire : un formulaire suppose un back-end, donc une base de
@@ -42,6 +43,25 @@ const attendu = [
           {CTA.email}
         </a>
       </p>
+    </div>
+
+    <div class="mt-10 border-t border-trait pt-8">
+      <h2 class="text-h3">CV</h2>
+      <p class="mt-3 text-secondaire">
+        Deux versions selon le besoin, au format PDF.
+      </p>
+      <ul class="mt-6 flex flex-col gap-3 sm:flex-row">
+        <li>
+          <Bouton href={lien('/cv/Papa_Amadou_BA_CV_Consultant_Data_IA.pdf')} externe>
+            Consultant Data et IA
+          </Bouton>
+        </li>
+        <li>
+          <Bouton href={lien('/cv/Papa_Amadou_BA_CV_Transformation_IA.pdf')} externe>
+            Consultant en transformation IA
+          </Bouton>
+        </li>
+      </ul>
     </div>
   </Section>
 

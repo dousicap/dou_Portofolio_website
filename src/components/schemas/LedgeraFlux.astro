@@ -1,0 +1,93 @@
+---
+/**
+ * Schéma du flux de décision de Ledgera.
+ *
+ * SVG en ligne plutôt qu'une image : les couleurs viennent des tokens via les
+ * classes fill-* / stroke-* (aucun hexadécimal hors tokens.css), le texte reste
+ * net à toutes les tailles et lisible par un lecteur d'écran.
+ */
+const etapes = [
+  { role: "L'IA propose", titre: 'Agents spécialisés', detail: 'extraction · classification · écriture' },
+  { role: 'Le moteur contrôle', titre: 'Contrôles déterministes', detail: 'bloquants, priment sur le score' },
+  { role: "L'expert approuve", titre: 'Validation humaine', detail: 'cas sous le seuil de confiance' },
+  { role: 'Résultat', titre: 'Écriture comptabilisée', detail: 'horodatée, attribuée, auditable' },
+];
+
+const x = 10;
+const largeur = 250;
+const hauteur = 64;
+const pas = 96;
+const yDepart = 96;
+---
+
+<figure class="not-prose my-10">
+  <svg
+    viewBox="0 0 400 470"
+    class="mx-auto block w-full max-w-[440px]"
+    role="img"
+    aria-labelledby="ledgera-flux-titre"
+  >
+    <title id="ledgera-flux-titre">
+      Flux de décision de Ledgera : une pièce entre, des agents IA proposent une
+      écriture, des contrôles déterministes adossés au corpus normatif la
+      vérifient et renvoient en remédiation en cas d'échec, l'expert valide les
+      cas douteux, puis l'écriture est comptabilisée et tracée.
+    </title>
+    <defs>
+      <marker id="ledgera-fleche" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0 L10 5 L0 10 z" class="fill-secondaire" />
+      </marker>
+    </defs>
+
+    <!-- Entrée -->
+    <rect x={x} y="10" width={largeur} height="50" rx="8" class="fill-none stroke-trait-controle" stroke-dasharray="4 4" />
+    <text x={x + 16} y="31" class="fill-texte font-titre" font-size="14" font-weight="600">Pièce entrante</text>
+    <text x={x + 16} y="49" class="fill-secondaire" font-size="12">facture, relevé, justificatif</text>
+    <line x1={x + largeur / 2} y1="60" x2={x + largeur / 2} y2={yDepart - 4} class="stroke-secondaire" stroke-width="1.5" marker-end="url(#ledgera-fleche)" />
+
+    {
+      etapes.map((e, i) => {
+        const y = yDepart + i * pas;
+        const dernier = i === etapes.length - 1;
+        return (
+          <g>
+            <rect x={x} y={y} width={largeur} height={hauteur} rx="8" class={dernier ? 'fill-surface stroke-accent' : 'fill-surface stroke-trait-controle'} />
+            <text x={x + 16} y={y + 20} class={dernier ? 'fill-accent' : 'fill-secondaire'} font-size="11" letter-spacing="0.04em">{e.role.toUpperCase()}</text>
+            <text x={x + 16} y={y + 39} class="fill-texte font-titre" font-size="14.5" font-weight="600">{e.titre}</text>
+            <text x={x + 16} y={y + 55} class="fill-secondaire" font-size="12">{e.detail}</text>
+            {!dernier && (
+              <line x1={x + largeur / 2} y1={y + hauteur} x2={x + largeur / 2} y2={y + pas - 4} class="stroke-secondaire" stroke-width="1.5" marker-end="url(#ledgera-fleche)" />
+            )}
+          </g>
+        );
+      })
+    }
+
+    <!-- Boucle de remédiation : contrôle en échec -> retour aux agents -->
+    <path
+      d={`M ${x + largeur} ${yDepart + pas + 20} H ${x + largeur + 14} V ${yDepart + 32} H ${x + largeur + 4}`}
+      class="fill-none stroke-secondaire"
+      stroke-width="1.5"
+      stroke-dasharray="3 3"
+      marker-end="url(#ledgera-fleche)"
+    />
+    <text x={x + largeur + 20} y={yDepart + 72} class="fill-secondaire" font-size="11">échec :</text>
+    <text x={x + largeur + 20} y={yDepart + 86} class="fill-secondaire" font-size="11">remédiation</text>
+
+    <!-- Corpus normatif versionné -> contrôles -->
+    <rect x="272" y={yDepart + pas + 70} width="124" height="66" rx="8" class="fill-none stroke-trait-controle" stroke-dasharray="4 4" />
+    <text x="282" y={yDepart + pas + 90} class="fill-texte font-titre" font-size="12.5" font-weight="600">Corpus normatif</text>
+    <text x="282" y={yDepart + pas + 106} class="fill-secondaire" font-size="11">versionné</text>
+    <text x="282" y={yDepart + pas + 122} class="fill-secondaire" font-size="11">PCG · SYSCOHADA</text>
+    <path
+      d={`M 337 ${yDepart + pas + 70} V ${yDepart + pas + 46} H ${x + largeur + 4}`}
+      class="fill-none stroke-secondaire"
+      stroke-width="1.5"
+      marker-end="url(#ledgera-fleche)"
+    />
+  </svg>
+  <figcaption class="mt-4 text-center text-menu text-secondaire">
+    Chaque transition est horodatée et attribuée. Une règle qui échoue l'emporte
+    toujours sur un score de confiance élevé.
+  </figcaption>
+</figure>

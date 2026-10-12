@@ -7,6 +7,8 @@ stack: ["LangGraph", "Python", "PostgreSQL", "Qdrant", "vLLM", "Docker"]
 ordre: 1
 ---
 
+import LedgeraFlux from '../../components/schemas/LedgeraFlux.astro';
+
 **Contexte.** Les cabinets d'expertise comptable traitent des masses de pièces
 dans un cadre normé (plan comptable, normes professionnelles, réforme de la
 facturation électronique). L'automatisation générique y échoue : une écriture
@@ -24,6 +26,8 @@ assume — et cette frontière doit être visible, traçable et testable.
   confiance du modèle ;
 - un **corpus normatif versionné**, jamais codé en dur dans le cœur applicatif :
   changer la règle ne veut pas dire redéployer le moteur.
+
+<LedgeraFlux />
 
 **Preuve.** Un harness d'évaluation branché en gate d'intégration continue : un
 corpus de cas de référence, des contrôles typés, des seuils de confiance mesurés
